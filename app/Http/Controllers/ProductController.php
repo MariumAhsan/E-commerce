@@ -38,33 +38,59 @@ class ProductController extends Controller
     public function store(Request $request)
 {
     // Validate the incoming request data
-    $request->validate([
-        'name' => 'required',
-        'description' => 'required',
-        'price' => 'required|numeric',
-        'quantity' => 'required|integer',
-        'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        'subcategory_id' => 'required',
-    ]);
-
+    
+    $imgNames = array();
     // Upload image
-    $image = $request->file('image');
-    $imgName = time() . '_' . $image->getClientOriginalName(); // Unique image name to avoid conflicts
-    $image->move(public_path('assets/images'), $imgName);
+    if ($request->image) {        
+        foreach ($request->file('image') as $image) {
+            
+            $imgName = time() . '_' . $image->getClientOriginalName();
+         
+            
+            $image->move(public_path('assets/images'), $imgName);
+            
+            // Add the image name to the array
+            $imgNames[] = $imgName;
+            
+        }
+       
+        //dd($imgNames);
+    }
+
+    
+    
+   // dd($imgNames);
+   //$productTags = json_encode($request->input('product_tags'));
 
     // Create the product
     $product = Product::create([            //using create already saves the data into the DB
         'name' => $request->input('name'),
-        'description' => $request->input('description'),
+        
+        'short_description' => $request->input('short_description'),
+        'long_description' => $request->input('long_description'),
         'price' => $request->input('price'),
-        'image' => $imgName, // Save path
-        'slug' => Str::slug($request->input('name')),
+        'offer_price' => $request->input('offer_price'),
+
         'quantity' => $request->input('quantity'),
+        'is_featured' => $request->input('is_featured'),
+        'product_type' => $request->input('product_type'),
+
+        'image' => $imgNames, 
+
+        'slug' => Str::slug($request->input('name')),
         'subcategory_id' => $request->input('subcategory_id'),
+        'mfg_date' => $request->input('mfg_date'),
+        'exp_date' => $request->input('exp_date'),
+
+        'sku_code' => $request->input('sku_code'),
+
+        'product_tags' => $request->input('product_tags'),
+        'additional_info' => $request->input('additional_info'),
+        'status' => $request->input('status'),
+
+        
     ]);
 
-    
-    
  
     return redirect()->back();
 }

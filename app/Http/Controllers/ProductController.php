@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\Image;
 use Illuminate\Http\Request;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Imagick\Driver;
@@ -39,9 +40,10 @@ class ProductController extends Controller
 {
     // Validate the incoming request data
     
-    $imgNames = array();
+    //$imgNames = array();
+
     // Upload image
-    if ($request->image) {        
+    /**if ($request->image) {        
         foreach ($request->file('image') as $image) {
             
             $imgName = time() . '_' . $image->getClientOriginalName();
@@ -53,43 +55,48 @@ class ProductController extends Controller
             $imgNames[] = $imgName;
             
         }
-       
-        //dd($imgNames);
     }
 
-    
+    */
     
    // dd($imgNames);
    //$productTags = json_encode($request->input('product_tags'));
 
     // Create the product
-    $product = Product::create([            //using create already saves the data into the DB
+    $product = Product::create([
         'name' => $request->input('name'),
-        
         'short_description' => $request->input('short_description'),
         'long_description' => $request->input('long_description'),
         'price' => $request->input('price'),
         'offer_price' => $request->input('offer_price'),
-
         'quantity' => $request->input('quantity'),
         'is_featured' => $request->input('is_featured'),
         'product_type' => $request->input('product_type'),
-
-        'image' => $imgNames, 
-
         'slug' => Str::slug($request->input('name')),
         'subcategory_id' => $request->input('subcategory_id'),
         'mfg_date' => $request->input('mfg_date'),
         'exp_date' => $request->input('exp_date'),
-
         'sku_code' => $request->input('sku_code'),
-
         'product_tags' => $request->input('product_tags'),
         'additional_info' => $request->input('additional_info'),
         'status' => $request->input('status'),
-
-        
     ]);
+    
+    if ($request->hasFile('image')) {
+        foreach ($request->file('image') as $image) {
+            $imagePath = time() . '.' . $image->getClientOriginalName();
+            $image->move(public_path('assets/images'), $imagePath);
+    
+            $product->images()->create([
+                'product_id' => $product->id,
+                'image' => $imagePath,
+            ]);
+        }
+    }
+    
+
+
+
 
  
     return redirect()->back();

@@ -1,6 +1,8 @@
 @extends('layouts.nav-sidebar')
 @section('content')
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script>
+    
     function generateSKU() {
         var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
         var length = 8;
@@ -99,7 +101,8 @@
 
                         <div class="form-group">
                             <label for="image">{{ __('Image') }}</label>
-                            <input id="image" type="file" class="form-control-file @error('image') is-invalid @enderror" name="image[]"  required>
+                            <input id="image" type="file" class="form-control-file @error('image') is-invalid @enderror" name="image[]" multiple required>
+                            <div class="input-images"></div>
                             @error('image')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -207,8 +210,8 @@
             fetch('/get-subcategories/' + categoryId)
                 .then(response => response.json())
                 .then(data => {
-                    console.log(data);
-                    data.forEach(subcategory => {
+                    console.log(data); 
+                    data.forEach(subcategory => {    //receiving array of subcategory
                         var option = document.createElement('option');
                         option.value = subcategory.id;
                         option.text = subcategory.name;
@@ -218,6 +221,35 @@
                 });
         }
     });
+    
+    
+$(document).ready(function() {
+  if (window.File && window.FileList && window.FileReader) {
+    $("#image").on("change", function(e) {
+      var image = e.target.image,
+        imageLength = image.length;
+      for (var i = 0; i < imageLength; i++) {
+        var f = image[i]
+        var fileReader = new FileReader();
+        fileReader.onload = (function(e) {
+          var image = e.target;
+          $("<span class=\"pip\">" +
+            "<img class=\"imageThumb\" src=\"" + e.target.result + "\" title=\"" + image.name + "\"/>" +
+            "<br/><span class=\"remove\">Remove image</span>" +
+            "</span>").insertAfter("#image");
+          $(".remove").click(function(){
+            $(this).parent(".pip").remove();
+          });
+          
+        });
+        fileReader.readAsDataURL(f);
+      }
+      console.log(image);
+    });
+  } else {
+    alert("Your browser doesn't support to File API")
+  }
+});
 </script>
 
 @endsection

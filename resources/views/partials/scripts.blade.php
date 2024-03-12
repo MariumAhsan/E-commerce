@@ -25,9 +25,13 @@
 <script src="{{asset('assets')}}/plugins/summernote/summernote-bs4.min.js"></script>
 <!-- overlayScrollbars -->
 <script src="{{asset('assets')}}/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+<!-- dropzonejs -->
+<script src="{{asset('assets')}}/plugins/dropzone/min/dropzone.min.js"></script>
 <!-- AdminLTE App -->
 <script src="{{asset('assets')}}/dist/js/adminlte.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{{asset('assets')}}/dist/js/demo.js"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{{asset('assets')}}/dist/js/pages/dashboard.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

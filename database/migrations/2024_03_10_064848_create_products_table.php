@@ -21,14 +21,15 @@ return new class extends Migration
             $table->integer('quantity')->default(1);;
             $table->integer('is_featured')->default(0)->comment('0=No, 1=Yes');
             $table->integer('product_type')->default(0)->comment('0=Physical, 1=Digital, 2=Organic');
-            $table->json('image')->nullable();
+            //$table->json('image')->nullable();
             $table->string('slug')->unique();
             $table->foreignId('subcategory_id');
             $table->foreign('subcategory_id')->references('id')->on('sub_categories')->onDelete('cascade');
             $table->string('mfg_date')->nullable();
             $table->string('exp_date')->nullable();
             $table->string('sku_code')->nullable();
-            $table->json('product_tags')->nullable();            $table->text('additional_info')->nullable();
+            $table->json('product_tags')->nullable();            
+            $table->text('additional_info')->nullable();
             $table->integer('status')->default(1)->comment('0=Inactive, 1=Active');
             $table->timestamps();
         });

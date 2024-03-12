@@ -18,3 +18,9 @@
  <link rel="stylesheet" href="{{asset('assets')}}/plugins/daterangepicker/daterangepicker.css">
  <!-- summernote -->
  <link rel="stylesheet" href="{{asset('assets')}}/plugins/summernote/summernote-bs4.min.css">
+ <!-- dropzonejs -->
+ <link rel="stylesheet" href="{{asset('assets')}}/plugins/dropzone/min/dropzone.min.css">
+ 
+ <!-- imageUploader ! -->
+ 
+ <link rel="stylesheet" href="{{asset('assets')}}/preview.css">  

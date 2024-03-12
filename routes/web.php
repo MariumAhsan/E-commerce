@@ -47,5 +47,5 @@ Route::middleware('auth', 'admin')->group(function () {
 });
 
 
-
+Route::get('/shop', [CategoryController::class, 'index'])->name('layouts.shop');
 require __DIR__.'/auth.php';

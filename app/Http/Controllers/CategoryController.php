@@ -16,6 +16,31 @@ class CategoryController extends Controller
      {
          return view('layouts.shop');
      }
+     public function index_cart()
+     {
+         return view('pages.cart');
+     }
+     public function index_checkout()
+     {
+         return view('pages.checkout');
+     }
+     public function index_shop_grid()
+     {
+         return view('pages.shop-grid-left');
+     }
+     public function index_single_product()
+     {
+         return view('pages.single-product');
+     }
+     public function index_register()
+     {
+         return view('pages.customer-register');
+     }
+     public function index_login()
+     {
+         return view('pages.customer-login');
+     }
+     
     public function create()
     {
 

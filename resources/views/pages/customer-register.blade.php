@@ -19,21 +19,27 @@
                                 <div class="padding_eight_all bg-white">
                                     <div class="heading_s1">
                                         <h1 class="mb-5">Create an Account</h1>
-                                        <p class="mb-30">Already have an account? <a href="page-login.html">Login</a></p>
+                                        <p class="mb-30">Already have an account? <a href="{{route('pages.customer-login')}}">Login</a></p>
                                     </div>
-                                    <form method="post">
+                                    <form action="{{route('register')}}" method="POST">
+                                        @csrf
                                         <div class="form-group">
-                                            <input type="text" required="" name="username" placeholder="Username" />
+                                            <input type="text" class="form-control" placeholder="Username" name="name":value="old('name')" required autofocus autocomplete="name"/>
                                         </div>
+                                        <x-input-error :messages="$errors->get('name')" class="mt-2" />
                                         <div class="form-group">
-                                            <input type="text" required="" name="email" placeholder="Email" />
+                                            <input type="email" class="form-control" placeholder="Email"  name="email":value="old('email')" required autocomplete="email" />
                                         </div>
+                                        <x-input-error :messages="$errors->get('email')" class="mt-2" />
                                         <div class="form-group">
-                                            <input required="" type="password" name="password" placeholder="Password" />
+                                            <input  type="password"  class="form-control" placeholder="Password" name="password"
+                                            required autocomplete="new-password"  />
                                         </div>
+                                        <x-input-error :messages="$errors->get('password')" class="mt-2" />
                                         <div class="form-group">
-                                            <input required="" type="password" name="password" placeholder="Confirm password" />
+                                            <input  type="password"  class="form-control" placeholder="Confirm password" name="password_confirmation" required autocomplete="new-password"/>
                                         </div>
+                                        <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
                                         <div class="login_footer form-group">
                                             <div class="chek-form">
                                                 <input type="text" required="" name="email" placeholder="Security code *" />
@@ -58,7 +64,7 @@
                                         <div class="login_footer form-group mb-50">
                                             <div class="chek-form">
                                                 <div class="custome-checkbox">
-                                                    <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox12" value="" />
+                                                    <input class="form-check-input" type="checkbox" name="terms" id="exampleCheckbox12" value="" />
                                                     <label class="form-check-label" for="exampleCheckbox12"><span>I agree to terms &amp; Policy.</span></label>
                                                 </div>
                                             </div>

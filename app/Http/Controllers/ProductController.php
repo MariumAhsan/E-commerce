@@ -123,6 +123,34 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
+    public function show()
+    {
+
+        $productData = Product::all();
+        
+        
+        return view('pages.shop-grid-left', compact('productData'));
+    }
+
+    public function view_single_product($product_id)
+    {
+      $product = Product::with('images')->find($product_id);
+      $imageUrls = [];
+
+      foreach ($product->images as $images) 
+      {
+        $imageUrls[] = $images->image;
+
+      }
+
+      $regularPrice = $product->price;
+      $offerPrice = $product->offer_price;
+      $discountAmount= $regularPrice-$offerPrice;
+      $discountPercentage = intval(($discountAmount / $regularPrice) * 100);
+      //dd($discountPercentage);
+      //dd($imageUrls);
+      return view('pages.single-product', compact('product','imageUrls','discountPercentage'));
+    }
     public function edit(Product $product)
     {
         //

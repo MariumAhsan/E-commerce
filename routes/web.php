@@ -48,10 +48,11 @@ Route::middleware('auth', 'admin')->group(function () {
 
 
 Route::get('/shop', [CategoryController::class, 'index'])->name('layouts.shop');
-Route::get('/cart', [CategoryController::class, 'index_cart'])->name('pages.cart');
-Route::get('/checkout', [CategoryController::class, 'index_checkout'])->name('pages.checkout');
-Route::get('/shop-grid-left', [CategoryController::class, 'index_shop_grid'])->name('pages.shop-grid-left');
-Route::get('/single-product', [CategoryController::class, 'index_single_product'])->name('pages.single-product');
-Route::get('/customer-register', [CategoryController::class, 'index_register'])->name('pages.customer-register');
-Route::get('/customer-login', [CategoryController::class, 'index_login'])->name('pages.customer-login');
+Route::get('/cart', [CategoryController::class, 'index_cart'])->name('pages.cart'); //incomplete
+Route::get('/checkout', [CategoryController::class, 'index_checkout'])->name('pages.checkout'); //incomplete
+Route::get('/shop-grid-left', [ProductController::class, 'show'])->name('pages.shop-grid-left'); //almost
+Route::get('/single-product/{product_id}', [ProductController::class, 'view_single_product'])->name('pages.single-product'); // progressing
+Route::get('/customer-register', [CategoryController::class, 'index_register'])->name('pages.customer-register'); //wrong
+Route::get('/customer-login', [CategoryController::class, 'index_login'])->name('pages.customer-login'); //wrong
+
 require __DIR__.'/auth.php';

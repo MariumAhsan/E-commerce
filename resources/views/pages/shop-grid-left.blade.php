@@ -108,9 +108,9 @@
                             </div>
                             <div class="product-content-wrap">
                                 <div class="product-category">
-                                    <a href="{{route('pages.single-product', $product->id)}}">{{$product->name}}</a> 
+                                    <a href="{{route('pages.single-product', $product->slug)}}">{{$product->name}}</a> 
                                 </div>
-                                <h2><a href="{{route('pages.single-product', $product->id)}}">{{$product->short_description}}</a></h2>
+                                <h2><a href="{{route('pages.single-product', $product->slug)}}">{{$product->short_description}}</a></h2>
                                 <div class="product-rate-cover">
                                     <div class="product-rate d-inline-block">
                                         <div class="product-rating" style="width: 90%"></div>
@@ -195,9 +195,9 @@
                         </ul>
                     </nav>
                 </div>
-                <section class="section-padding pb-5">
+                <section class="section-padding pb-5">           <!--deals section starts here ---->
                     <div class="section-title">
-                        <h3 class="">Deals Of The Day</h3>
+                        <h3 class="">Deals Of The Day</h3>        
                         <a class="show-all" href="shop-grid-right.html">
                             All Deals
                             <i class="fi-rs-angle-right"></i>

@@ -22,5 +22,3 @@
 <!-- Template  JS -->
 <script src="{{asset('assets')}}/assets/js/main.js?v=5.5"></script>
 <script src="{{asset('assets')}}/assets/js/shop.js?v=5.5"></script>
-<!-- CK editor -->
-<script src="https://cdn.ckeditor.com/ckeditor5/41.2.1/classic/ckeditor.js"></script>

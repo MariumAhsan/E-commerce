@@ -24,14 +24,7 @@ class CategoryController extends Controller
      {
          return view('pages.checkout');
      }
-     public function index_shop_grid()
-     {
-         return view('pages.shop-grid-left');
-     }
-     public function index_single_product()
-     {
-         return view('pages.single-product');
-     }
+    
      public function index_register()
      {
          return view('pages.customer-register');

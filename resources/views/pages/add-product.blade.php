@@ -1,6 +1,7 @@
 @extends('layouts.nav-sidebar')
 @section('content')
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script>
 <script>
     
     function generateSKU() {
@@ -45,14 +46,14 @@
                         </div>
                         <div class="form-group">
                             <label for="long_description">{{ __('Long Description') }}</label>
-                            <textarea id="long_description" class="form-control @error('long_description') is-invalid @enderror" name="long_description" required>{{ old('long_description') }}</textarea>
+                            <textarea id="long_description" class="form-control @error('long_description') is-invalid @enderror editor" name="long_description" required>{{ old('long_description') }}</textarea>
                             @error('long_description')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
                         </div>
-
+                       
                         <div class="form-group">
                             <label for="price">{{ __('Price') }}</label>
                             <input id="price" type="number"  class="form-control @error('price') is-invalid @enderror" name="price" value="{{ old('price') }}" required>
@@ -172,7 +173,7 @@
                         </div>
                         <div class="form-group">
                             <label for="additional_info">{{ __('Additional Information') }}</label>
-                            <textarea id="additional_info" class="form-control @error('additional_info') is-invalid @enderror" name="additional_info" required>{{ old('additional_info') }}</textarea>
+                            <textarea id="additional_info" class="form-control @error('additional_info') is-invalid @enderror editor" name="additional_info" required>{{ old('additional_info') }}</textarea>
                             @error('additional_info')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -192,7 +193,7 @@
                                 </span>
                             @enderror
                         </div>
-                            
+                       
                         <button type="submit" class="btn btn-primary">{{ __('Add Product') }}</button>
                     </form>
                 </div>
@@ -201,6 +202,12 @@
     </div>
 </div>
 <script>
+     CKEDITOR.replace( 'long_description' );
+     CKEDITOR.replace( 'additional_info' );
+       
+</script>
+<script>
+   
     document.getElementById('category_id').addEventListener('change', function() {
         var categoryId = this.value;
         var subcategoryDropdown = document.getElementById('subcategory_id');

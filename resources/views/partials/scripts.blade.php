@@ -35,3 +35,5 @@
 <script src="{{asset('assets')}}/dist/js/pages/dashboard.js"></script>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- CK editor -->
+<script src="https://cdn.ckeditor.com/ckeditor5/41.2.1/classic/ckeditor.js"></script>

@@ -126,15 +126,18 @@ class ProductController extends Controller
     public function show()
     {
 
-        $productData = Product::all();
-        
-        
+        $productData = Product::orderBy('id', 'desc')->get();   // Sort by ID in descending order
+
         return view('pages.shop-grid-left', compact('productData'));
     }
 
-    public function view_single_product($product_id)
+    public function view_single_product($slug)
     {
-      $product = Product::with('images')->find($product_id);
+    
+      $temp = Product::where('slug', $slug)->first();
+      $productId = $temp->id;
+
+      $product = Product::with('images')->find($productId);
       $imageUrls = [];
 
       foreach ($product->images as $images) 

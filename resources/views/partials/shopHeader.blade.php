@@ -99,10 +99,10 @@
                 <div class="col-xl-3 col-lg-4">
                     <div class="header-info">
                         <ul>
-                            <li><a href="page-about.htlm">About Us</a></li>
-                            <li><a href="page-account.html">My Account</a></li>
-                            <li><a href="shop-wishlist.html">Wishlist</a></li>
-                            <li><a href="shop-order.html">Order Tracking</a></li>
+                            <li><a href="">About Us</a></li>
+                            <li><a href="">My Account</a></li>
+                            <li><a href="">Wishlist</a></li>
+                            <li><a href="">Order Tracking</a></li>
                         </ul>
                     </div>
                 </div>
@@ -159,7 +159,7 @@
         <div class="container">
             <div class="header-wrap">
                 <div class="logo logo-width-1">
-                    <a href="index.html"><img src="{{asset('assets')}}/assets/imgs/theme/logo.svg" alt="logo" /></a>
+                    <a href="{{route('pages.shop-grid-left')}}"><img src="{{asset('assets')}}/assets/imgs/theme/logo.svg" alt="logo" /></a>
                 </div>
                 <div class="header-right">
                     <div class="search-style-2">
@@ -217,11 +217,11 @@
                                 <a href="shop-wishlist.html"><span class="lable">Wishlist</span></a>
                             </div>
                             <div class="header-action-icon-2">
-                                <a class="mini-cart-icon" href="shop-cart.html">
+                                <a class="mini-cart-icon" href="{{route('pages.cart')}}">
                                     <img alt="Nest" src="{{asset('assets')}}/assets/imgs/theme/icons/icon-cart.svg" />
                                     <span class="pro-count blue">2</span>
                                 </a>
-                                <a href="shop-cart.html"><span class="lable">Cart</span></a>
+                                <a href="{{route('pages.cart')}}"><span class="lable">Cart</span></a>
                                 <div class="cart-dropdown-wrap cart-dropdown-hm2">
                                     <ul>
                                         <li>
@@ -254,8 +254,8 @@
                                             <h4>Total <span>$4000.00</span></h4>
                                         </div>
                                         <div class="shopping-cart-button">
-                                            <a href="shop-cart.html" class="outline">View cart</a>
-                                            <a href="shop-checkout.html">Checkout</a>
+                                            <a href="{{route('pages.cart')}}" class="outline">View cart</a>
+                                            <a href="{{route('pages.checkout')}}">Checkout</a>
                                         </div>
                                     </div>
                                 </div>
@@ -268,7 +268,7 @@
                                 <div class="cart-dropdown-wrap cart-dropdown-hm2 account-dropdown">
                                     <ul>
                                         <li>
-                                            <a href="page-account.html"><i class="fi fi-rs-user mr-10"></i>My Account</a>
+                                            <a href="{{route('register')}}"><i class="fi fi-rs-user mr-10"></i>My Account</a>
                                         </li>
                                         <li>
                                             <a href="page-account.html"><i class="fi fi-rs-location-alt mr-10"></i>Order Tracking</a>
@@ -283,7 +283,15 @@
                                             <a href="page-account.html"><i class="fi fi-rs-settings-sliders mr-10"></i>Setting</a>
                                         </li>
                                         <li>
-                                            <a href="page-login.html"><i class="fi fi-rs-sign-out mr-10"></i>Sign out</a>
+                                            <div class="sidebar-custom">
+                                                <form method="POST" action="{{ route('logout') }}">
+                                                  @csrf
+                                              
+                                                  <x-dropdown-link :href="route('logout')" class="btn btn-info" onclick="event.preventDefault(); this.closest('form').submit();">
+                                                      {{ __('Log Out') }}
+                                                  </x-dropdown-link>
+                                              </form>
+                                            </div>
                                         </li>
                                     </ul>
                                 </div>
@@ -371,7 +379,7 @@
                             <ul>
                                 <li class="hot-deals"><img src="{{asset('assets')}}/assets/imgs/theme/icons/icon-hot.svg" alt="hot deals" /><a href="shop-grid-right.html">Deals</a></li>
                                 <li>
-                                    <a class="active" href="index.html">Home <i class="fi-rs-angle-down"></i></a>
+                                    <a class="active" href="/">Home <i class="fi-rs-angle-down"></i></a>
                                     <ul class="sub-menu">
                                         <li><a href="index.html">Home 1</a></li>
                                         <li><a href="index-2.html">Home 2</a></li>
@@ -382,10 +390,10 @@
                                     </ul>
                                 </li>
                                 <li>
-                                    <a href="page-about.html">About</a>
+                                    <a href="">About</a> <!--Make an about us page--->
                                 </li>
                                 <li>
-                                    <a href="shop-grid-right.html">Shop <i class="fi-rs-angle-down"></i></a>
+                                    <a href="{{route('pages.shop-grid-left')}}">Shop <i class="fi-rs-angle-down"></i></a>
                                     <ul class="sub-menu">
                                         <li><a href="shop-grid-right.html">Shop Grid – Right Sidebar</a></li>
                                         <li><a href="shop-grid-left.html">Shop Grid – Left Sidebar</a></li>
@@ -431,7 +439,7 @@
                                     </ul>
                                 </li>
                                 <li class="position-static">
-                                    <a href="#">Mega menu <i class="fi-rs-angle-down"></i></a>
+                                    <a href="#">Mega menu <i class="fi-rs-angle-down"></i></a> <!---POPULATE MEGAMENU---->
                                     <ul class="mega-menu">
                                         <li class="sub-mega-menu sub-mega-menu-width-22">
                                             <a class="menu-title" href="#">Fruit & Vegetables</a>
@@ -552,7 +560,7 @@
                             </a>
                         </div>
                         <div class="header-action-icon-2">
-                            <a class="mini-cart-icon" href="#">
+                            <a class="mini-cart-icon" href="{{route('pages.cart')}}">
                                 <img alt="Nest" src="{{asset('assets')}}/assets/imgs/theme/icons/icon-cart.svg" />
                                 <span class="pro-count white">2</span>
                             </a>
@@ -588,8 +596,8 @@
                                         <h4>Total <span>$383.00</span></h4>
                                     </div>
                                     <div class="shopping-cart-button">
-                                        <a href="shop-cart.html">View cart</a>
-                                        <a href="shop-checkout.html">Checkout</a>
+                                        <a href="{{route('pages.cart')}}">View cart</a>
+                                        <a href="{{route('pages.checkout')}}">Checkout</a>
                                     </div>
                                 </div>
                             </div>
@@ -625,18 +633,10 @@
                 <nav>
                     <ul class="mobile-menu font-heading">
                         <li class="menu-item-has-children">
-                            <a href="index.html">Home</a>
-                            <ul class="dropdown">
-                                <li><a href="index.html">Home 1</a></li>
-                                <li><a href="index-2.html">Home 2</a></li>
-                                <li><a href="index-3.html">Home 3</a></li>
-                                <li><a href="index-4.html">Home 4</a></li>
-                                <li><a href="index-5.html">Home 5</a></li>
-                                <li><a href="index-6.html">Home 6</a></li>
-                            </ul>
+                            <a href="/">Home</a>
                         </li>
                         <li class="menu-item-has-children">
-                            <a href="shop-grid-right.html">shop</a>
+                            <a href="{{route('pages.shop-grid-left')}}">shop</a>
                             <ul class="dropdown">
                                 <li><a href="shop-grid-right.html">Shop Grid – Right Sidebar</a></li>
                                 <li><a href="shop-grid-left.html">Shop Grid – Left Sidebar</a></li>
@@ -670,17 +670,7 @@
                                 </li>
                             </ul>
                         </li>
-                        <li class="menu-item-has-children">
-                            <a href="#">Vendors</a>
-                            <ul class="dropdown">
-                                <li><a href="vendors-grid.html">Vendors Grid</a></li>
-                                <li><a href="vendors-list.html">Vendors List</a></li>
-                                <li><a href="vendor-details-1.html">Vendor Details 01</a></li>
-                                <li><a href="vendor-details-2.html">Vendor Details 02</a></li>
-                                <li><a href="vendor-dashboard.html">Vendor Dashboard</a></li>
-                                <li><a href="vendor-guide.html">Vendor Guide</a></li>
-                            </ul>
-                        </li>
+                    
                         <li class="menu-item-has-children">
                             <a href="#">Mega menu</a>
                             <ul class="dropdown">
@@ -731,22 +721,6 @@
                             </ul>
                         </li>
                         <li class="menu-item-has-children">
-                            <a href="#">Pages</a>
-                            <ul class="dropdown">
-                                <li><a href="page-about.html">About Us</a></li>
-                                <li><a href="page-contact.html">Contact</a></li>
-                                <li><a href="page-account.html">My Account</a></li>
-                                <li><a href="page-login.html">Login</a></li>
-                                <li><a href="page-register.html">Register</a></li>
-                                <li><a href="page-forgot-password.html">Forgot password</a></li>
-                                <li><a href="page-reset-password.html">Reset password</a></li>
-                                <li><a href="page-purchase-guide.html">Purchase Guide</a></li>
-                                <li><a href="page-privacy-policy.html">Privacy Policy</a></li>
-                                <li><a href="page-terms.html">Terms of Service</a></li>
-                                <li><a href="page-404.html">404 Page</a></li>
-                            </ul>
-                        </li>
-                        <li class="menu-item-has-children">
                             <a href="#">Language</a>
                             <ul class="dropdown">
                                 <li><a href="#">English</a></li>
@@ -764,7 +738,7 @@
                     <a href="page-contact.html"><i class="fi-rs-marker"></i> Our location </a>
                 </div>
                 <div class="single-mobile-header-info">
-                    <a href="page-login.html"><i class="fi-rs-user"></i>Log In / Sign Up </a>
+                    <a href="{{route('register')}}"><i class="fi-rs-user"></i>Log In / Sign Up </a>
                 </div>
                 <div class="single-mobile-header-info">
                     <a href="#"><i class="fi-rs-headphones"></i>(+01) - 2345 - 6789 </a>

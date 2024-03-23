@@ -126,8 +126,12 @@
                                         <span class="old-price">Tk.{{$product->price}}</span>
                                     </div>
                                     <div class="add-cart">
-                                        <a class="add" href="{{route('store.cart',$product->id)}}"><i class="fi-rs-shopping-cart mr-5"></i>Add </a>
+                                        <form action="{{ route('store.cart', $product->id) }}" method="POST">
+                                            @csrf
+                                            <button class="btn btn-xs" type="submit"><i class="fi-rs-shopping-cart mr-5"></i></button>
+                                        </form>
                                     </div>
+                                    
                                 </div>
                             </div>
                         </div>

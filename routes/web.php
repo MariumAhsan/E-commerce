@@ -55,6 +55,6 @@ Route::get('/shop-grid-left', [ProductController::class, 'show'])->name('pages.s
 Route::get('/single-product/{slug}', [ProductController::class, 'view_single_product'])->name('pages.single-product'); // almost
 
 //Route::resource('carts', CartController::class);
-Route::get('/cart/{product_id}', [CartController::class, 'store'])->name('store.cart'); // almost
+Route::post('/cart/{product_id}', [CartController::class, 'store'])->name('store.cart'); // almost
 
 require __DIR__.'/auth.php';

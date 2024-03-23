@@ -31,67 +31,68 @@ class CartController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request, $product_id)
-    {
-
-        $product = Product::with(['images' => function ($query) {
-                            $query->first();
-                        }])->find($product_id);
+{
+    $products = Product::with(['images' => function ($query) {
+                        $query->first();
+                    }])->find($product_id);
+    
+    $unit_price = $products->offer_price;
+    $quantity = $request->input('quantity', 1);
+    
+    if (Auth::check()) {
         
-        $unit_price = $product->offer_price;
-        $quantity = $request->input('quantity', 1);
+        $user_id = Auth::id();
+        $ip_address = $request->ip();
+    
+        $cartItem = Cart::where('product_id', $product_id)->where('user_id', $user_id)->first();
+                  
+        if (!$cartItem) {
         
-        if (Auth::check()) {
+            Cart::create([
+                    'user_id' => $user_id,
+                    'ip_address' => $ip_address,
+                    'product_id' => $product_id,
+                    'unit_price' => $unit_price,
+                    'quantity' => $quantity,
+                ]);
             
-            $user_id = Auth::id();
-            $ip_address = $request->ip();
+        } 
+
+        $cartItems = Cart::where('user_id', $user_id)->get();
+        $totalItems = Cart::where('user_id', $user_id)->count('user_id');
         
-            $cartItem = Cart::where('product_id', $product_id)->where('user_id', $user_id)->first();
-                      
-            if (!$cartItem) {
-            
-                Cart::create([
-                        'user_id' => $user_id,
-                        'ip_address' => $ip_address,
-                        'product_id' => $product_id,
-                        'unit_price' => $unit_price,
-                        'quantity' => $quantity,
-                    ]);
-                
-            } 
-
-            $cartItems = Cart::where('user_id', $user_id)->get();
-            //dd($cartItems);
-            return view('pages.cart', compact('product','cartItems'));   
-
-
-        
-        } else {
-            
-            $user_id = null;
-            $ip_address = $request->ip();
-            $cartItem = Cart::where('product_id', $product_id)->where('ip_address', $ip_address)->first();
-        
-                if (!$cartItem) {
-                    Cart::create([
-                        'user_id' => $user_id,
-                        'ip_address' => $ip_address,
-                        'product_id' => $product_id,
-                        'unit_price' => $unit_price,
-                        'quantity' => $quantity,
-                     ]);
-
-                } 
-                
-                $cartItems = Cart::where('ip_address', $ip_address)->get();
-                //dd($cartItems);
-            
-                return view('pages.cart', compact('product','cartItems'));
-            
-        }
+        $totalPrice = 0;
+        foreach ($cartItems as $item) {
+            $totalPrice += $item->unit_price * $item->quantity;}
        
+        return view('pages.cart', compact('products', 'cartItems', 'totalItems','totalPrice'));   
+    } else {
         
-        
+        $user_id = null;
+        $ip_address = $request->ip();
+        $cartItem = Cart::where('product_id', $product_id)->where('ip_address', $ip_address)->first();
+    
+            if (!$cartItem) {
+                Cart::create([
+                    'user_id' => $user_id,
+                    'ip_address' => $ip_address,
+                    'product_id' => $product_id,
+                    'unit_price' => $unit_price,
+                    'quantity' => $quantity,
+                 ]);
+
+            } 
+            
+            $cartItems = Cart::where('ip_address', $ip_address)->get();
+            $totalItems = Cart::where('ip_address', $ip_address)->count('user_id');
+            $totalPrice = 0;
+            foreach ($cartItems as $item) {
+                $totalPrice += $item->unit_price * $item->quantity;}
+           
+            return view('pages.cart', compact('products', 'cartItems', 'totalItems','totalPrice'));   
     }
+}
+
 
     /**
      * Display the specified resource.

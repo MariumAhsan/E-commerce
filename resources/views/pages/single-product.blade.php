@@ -68,10 +68,13 @@
                                         <li><a href="#">150g</a></li>
                                     </ul>
                                 </div>
+                                
+                                <form action="{{ route('store.cart', ['product_id' => $product->id]) }}" method="POST">
+                                @csrf
                                 <div class="detail-extralink mb-50">
                                     <div class="detail-qty border radius">
                                         <a href="#" class="qty-down"><i class="fi-rs-angle-small-down"></i></a>
-                                        <input type="text" name="quantity" class="qty-val" value="1" min="1">
+                                        <input type="text" name="quantity" class="qty-val" value="1" min="1" max="$product->quantity">
                                         <a href="#" class="qty-up"><i class="fi-rs-angle-small-up"></i></a>
                                     </div>
                                     <div class="product-extra-link2">
@@ -80,6 +83,7 @@
                                         <a aria-label="Compare" class="action-btn hover-up" href="shop-compare.html"><i class="fi-rs-shuffle"></i></a>
                                     </div>
                                 </div>
+                                </form>
                                 <div class="font-xs">
                                     <ul class="mr-50 float-start">
                                         <li class="mb-5">Type: <span class="text-brand">{{$product->product_type}}</span></li>

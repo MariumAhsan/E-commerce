@@ -89,7 +89,7 @@
                                     <ul class="float-start">
                                         <li class="mb-5">SKU: <a href="#">{{$product->sku_code}}</a></li>
                                         <!--<li class="mb-5">Tags: <a href="#" rel="tag">Snack</a>, <a href="#" rel="tag">Organic</a>, <a href="#" rel="tag">Brown</a></li>-->
-                                        <li class="mb-5">Tags: </li>
+                                        <li class="mb-5">Tags: <a href="#">{{implode(', ', $product->product_tags)}}</a></li>
                                         <li>Stock:<span class="in-stock text-brand ml-5">{{$product->quantity}} items In Stock</span></li>
                                     </ul>
                                 </div>

@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SubCategoryController;
-
+use App\Http\Controllers\CartController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -53,5 +53,8 @@ Route::get('/cart', [CategoryController::class, 'index_cart'])->name('pages.cart
 Route::get('/checkout', [CategoryController::class, 'index_checkout'])->name('pages.checkout'); //incomplete
 Route::get('/shop-grid-left', [ProductController::class, 'show'])->name('pages.shop-grid-left'); //almost
 Route::get('/single-product/{slug}', [ProductController::class, 'view_single_product'])->name('pages.single-product'); // almost
+
+//Route::resource('carts', CartController::class);
+Route::get('/cart/{product_id}', [CartController::class, 'store'])->name('store.cart'); // almost
 
 require __DIR__.'/auth.php';

@@ -64,7 +64,7 @@
                 <div class="section-title">
                     <div class="title">
                         <h3>Featured Categories</h3>
-                        <ul class="list-inline nav nav-tabs links">
+                        <ul class="list-inline nav nav-tabs links"> <!---Import features categories and products here-->
                             <li class="list-inline-item nav-item"><a class="nav-link" href="shop-grid-right.html">Cake & Milk</a></li>
                             <li class="list-inline-item nav-item"><a class="nav-link" href="shop-grid-right.html">Coffes & Teas</a></li>
                             <li class="list-inline-item nav-item"><a class="nav-link active" href="shop-grid-right.html">Pet Foods</a></li>

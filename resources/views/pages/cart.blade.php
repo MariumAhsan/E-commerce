@@ -77,7 +77,14 @@
                                 <td class="price" data-title="Price">
                                     <h4 class="text-brand">Tk.{{ $cartItem->unit_price * $cartItem->quantity }}</h4>
                                 </td>
-                                <td class="action text-center" data-title="Remove"><a href="#" class="text-body"><i class="fi-rs-trash"></i></a></td>
+                                <td class="action text-center" data-title="Remove">
+                                    <form action="{{ route('carts.destroy', $cartItem->id) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-light btn-sm text-body"><i class="fi-rs-trash"></i></button>
+                                    </form>
+                                </td>
+                                
                             </tr>
                             @endforeach
                         </tbody>

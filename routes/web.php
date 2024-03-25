@@ -49,12 +49,12 @@ Route::middleware('auth', 'admin')->group(function () {
 
 
 Route::get('/shop', [CategoryController::class, 'index'])->name('layouts.shop');
-Route::get('/cart', [CategoryController::class, 'index_cart'])->name('pages.cart'); //incomplete
+Route::get('/cart', [CategoryController::class, 'index_cart'])->name('pages.cart'); //edit and show left
 Route::get('/checkout', [CategoryController::class, 'index_checkout'])->name('pages.checkout'); //incomplete
-Route::get('/shop-grid-left', [ProductController::class, 'show'])->name('pages.shop-grid-left'); //almost
+Route::get('/shop-grid-left', [ProductController::class, 'show'])->name('pages.shop-grid-left'); //done
 Route::get('/single-product/{slug}', [ProductController::class, 'view_single_product'])->name('pages.single-product'); // almost
 
-//Route::resource('carts', CartController::class);
-Route::post('/cart/{product_id}', [CartController::class, 'store'])->name('store.cart'); // almost
+Route::resource('carts', CartController::class);
+Route::post('/cart/{product_id}', [CartController::class, 'store'])->name('store.cart');
 
 require __DIR__.'/auth.php';

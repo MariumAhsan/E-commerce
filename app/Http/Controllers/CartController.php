@@ -56,7 +56,9 @@ class CartController extends Controller
                     'quantity' => $quantity,
                 ]);
             
-        } 
+        } else{
+            $cartItem->update(['quantity' => $cartItem->quantity + $quantity]);
+        }
 
         $cartItems = Cart::where('user_id', $user_id)->get();
         $totalItems = Cart::where('user_id', $user_id)->count('user_id');
@@ -82,7 +84,9 @@ class CartController extends Controller
                  ]);
 
             } 
-            
+            else{
+                $cartItem->update(['quantity' => $cartItem->quantity + $quantity]);
+            }
             $cartItems = Cart::where('ip_address', $ip_address)->get();
             $totalItems = Cart::where('ip_address', $ip_address)->count('user_id');
             $totalPrice = 0;
@@ -121,8 +125,23 @@ class CartController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Cart $cart)
+    public function destroy($cart_id)
     {
-        //
+        $user_id = Auth::id();
+        $ip_address = request()->ip();
+        //dd($cart_id);
+        // Find the cart item by user_id or ip_address 
+        
+        $cartItem = Auth::check() ?
+            Cart::where('user_id', $user_id)->where('id', $cart_id)->first() :
+            Cart::where('ip_address', $ip_address)->where('id', $cart_id)->first();
+
+
+        //dd($cartItem);
+       
+        $cartItem->delete();
+        return redirect();
     }
+    
+
 }

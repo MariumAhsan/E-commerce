@@ -88,7 +88,7 @@ class CartController extends Controller
                 $cartItem->update(['quantity' => $cartItem->quantity + $quantity]);
             }
             $cartItems = Cart::where('ip_address', $ip_address)->get();
-            $totalItems = Cart::where('ip_address', $ip_address)->count('user_id');
+            $totalItems = Cart::where('ip_address', $ip_address)->count('ip_address');
             $totalPrice = 0;
             foreach ($cartItems as $item) {
                 $totalPrice += $item->unit_price * $item->quantity;}
@@ -117,31 +117,86 @@ class CartController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Cart $cart)
+    public function update(Request $request, $cart_id)
     {
-        //
+            $user_id = Auth::id();
+            $ip_address = request()->ip();
+    
+            // Find the cart item by user_id or ip_address 
+            $item = Auth::check() ?
+            Cart::where('user_id', $user_id)->where('id', $cart_id)->first() :
+            Cart::where('ip_address', $ip_address)->where('id', $cart_id)->first();
+            
+            
+            // Store product id to for image
+            $product_id = $item->product_id;
+    
+            $item->update(['quantity' => $request->quantity]);
+            //dd($item);
+
+            $products = Product::with(['images' => function ($query) {
+                 $query->first();
+                }])->find($product_id);
+    
+            //dd($products);
+            $cartItems = Auth::check() ?
+                Cart::where('user_id', $user_id)->get() :
+                Cart::where('ip_address', $ip_address)->get();
+    
+            $totalItems = Auth::check() ?
+                Cart::where('user_id', $user_id)->count('user_id') :
+                Cart::where('ip_address', $ip_address)->count('ip_address');
+    
+            $totalPrice = 0;
+            foreach ($cartItems as $singleItem) {
+                $totalPrice += $singleItem->unit_price * $singleItem->quantity;
+            }
+    
+            return view('pages.cart', compact('products', 'cartItems', 'totalItems', 'totalPrice'));
+        
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($cart_id)
+    public function destroy($cart_id) 
     {
+
         $user_id = Auth::id();
         $ip_address = request()->ip();
-        //dd($cart_id);
+
         // Find the cart item by user_id or ip_address 
-        
-        $cartItem = Auth::check() ?
-            Cart::where('user_id', $user_id)->where('id', $cart_id)->first() :
-            Cart::where('ip_address', $ip_address)->where('id', $cart_id)->first();
+        $item = Auth::check() ?
+        Cart::where('user_id', $user_id)->where('id', $cart_id)->first() :
+        Cart::where('ip_address', $ip_address)->where('id', $cart_id)->first();
 
+        // Store product id to for image
+        $product_id = $item->product_id;
 
-        //dd($cartItem);
-       
-        $cartItem->delete();
-        return redirect();
+        $item->delete();
+
+        // Fetch products again since one product is removed
+        $products = Product::with(['images' => function ($query) {
+             $query->first();
+            }])->find($product_id);
+
+        //dd($products);
+        $cartItems = Auth::check() ?
+            Cart::where('user_id', $user_id)->get() :
+            Cart::where('ip_address', $ip_address)->get();
+
+        $totalItems = Auth::check() ?
+            Cart::where('user_id', $user_id)->count('user_id') :
+            Cart::where('ip_address', $ip_address)->count('ip_address');
+
+        $totalPrice = 0;
+        foreach ($cartItems as $singleItem) {
+            $totalPrice += $singleItem->unit_price * $singleItem->quantity;
+        }
+
+            return view('pages.cart', compact('products', 'cartItems', 'totalItems', 'totalPrice'));
     }
+
     
 
 }

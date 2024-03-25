@@ -16,8 +16,12 @@
             <div class="col-lg-8 mb-40">
                 <h1 class="heading-2 mb-10">Your Cart</h1>
                 <div class="d-flex justify-content-between">
+                    @if ($cartItems->isEmpty())
+                    <h6 class="text-body">There are <span class="text-brand"> no </span> products in your cart</h6>
+                    @else
                     <h6 class="text-body">There are <span class="text-brand">{{$totalItems}}</span> products in your cart</h6>
                     <h6 class="text-body"><a href="#" class="text-muted"><i class="fi-rs-trash mr-5"></i>Clear Cart</a></h6>
+                    @endif
                 </div>
             </div>
         </div>
@@ -37,6 +41,7 @@
                                 <th scope="col" colspan="2">Product</th>
                                 <th scope="col">Unit Price</th>
                                 <th scope="col">Quantity</th>
+                                <th scope="col">Update</th>
                                 <th scope="col">Subtotal</th>
                                 <th scope="col" class="end">Remove</th>
                             </tr>
@@ -65,15 +70,21 @@
                                 <td class="price" data-title="Price">
                                     <h4 class="text-body">Tk.{{ $cartItem->unit_price }}</h4>
                                 </td>
-                                <td class="text-center detail-info" data-title="Stock">
+                                <form action="{{ route('carts.update', $cartItem->id) }}" method="POST">
+                                @csrf
+                                @method('PUT')
+                                <td class="detail-info" data-title="Stock">
                                     <div class="detail-extralink mr-15">
-                                        <div class="detail-qty border radius">
-                                            <a href="#" class="qty-down"><i class="fi-rs-angle-small-down"></i></a>
-                                            <span class="qty-val">{{ $cartItem->quantity }}</span>
-                                            <a href="#" class="qty-up"><i class="fi-rs-angle-small-up"></i></a>
-                                        </div>
+                                        <input type="hidden" name="product_id" value="{{ $cartItem->product_id }}">
+                                        <input type="number" name="quantity" value="{{ $cartItem->quantity }}" min="1" style="width: 150px;">
                                     </div>
                                 </td>
+                                <td class="action text-center" data-title="Update">
+                                    <div class="mr-15">
+                                        <button type="submit" class="btn btn-light btn-sm">Update</button>
+                                    </div>
+                                </td>
+                                </form>
                                 <td class="price" data-title="Price">
                                     <h4 class="text-brand">Tk.{{ $cartItem->unit_price * $cartItem->quantity }}</h4>
                                 </td>
@@ -81,7 +92,7 @@
                                     <form action="{{ route('carts.destroy', $cartItem->id) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-light btn-sm text-body"><i class="fi-rs-trash"></i></button>
+                                        <button type="submit" class="btn btn-light btn-sm "><i class="fi-rs-trash"></i></button>
                                     </form>
                                 </td>
                                 
@@ -93,7 +104,7 @@
                 </div>
                 <div class="divider-2 mb-30"></div>
                 <div class="cart-action d-flex justify-content-between">
-                    <a class="btn "><i class="fi-rs-arrow-left mr-10"></i>Continue Shopping</a>
+                    <a href="{{route('pages.shop-grid-left')}}" class="btn "><i class="fi-rs-arrow-left mr-10"></i>Continue Shopping</a>
                     <a class="btn  mr-10 mb-sm-15"><i class="fi-rs-refresh mr-10"></i>Update Cart</a>
                 </div>
                 

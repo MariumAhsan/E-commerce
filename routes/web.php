@@ -38,10 +38,11 @@ Route::middleware('auth', 'admin')->group(function () {
     Route::get('/add-category', [CategoryController::class, 'create'])->name('pages.add-category');
     Route::get('/add-subcategory', [SubCategoryController::class, 'create'])->name('pages.add-subcategory');
 
-    Route::post('/add-product', [ProductController::class, 'store'])->name('product.store');
-    Route::post('/add-category', [CategoryController::class, 'store'])->name('category.store');
-    Route::post('/add-subcategory', [SubCategoryController::class, 'store'])->name('subcategory.store');
-
+    Route::post('/store-product', [ProductController::class, 'store'])->name('product.store');
+    
+    Route::get('/add-division', [DivisionController::class, 'store'])->name('division.store');
+    Route::get('/add-district', [DistrictController::class, 'store'])->name('district.store');
+    Route::get('/add-thana', [ThanaController::class, 'store'])->name('thana.store');
     Route::get('/get-subcategories/{category_id}', [ProductController::class, 'getSubCategories']);
     
 });

@@ -4,6 +4,9 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DivisionController;
+use App\Http\Controllers\DistrictController;
+use App\Http\Controllers\ThanaController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\CartController;
 /*
@@ -39,10 +42,17 @@ Route::middleware('auth', 'admin')->group(function () {
     Route::get('/add-subcategory', [SubCategoryController::class, 'create'])->name('pages.add-subcategory');
 
     Route::post('/store-product', [ProductController::class, 'store'])->name('product.store');
+    Route::post('/store-category', [CategoryController::class, 'store'])->name('category.store');
+    Route::post('/store-subcategory', [SubCategoryController::class, 'store'])->name('subcategory.store');
     
-    Route::get('/add-division', [DivisionController::class, 'store'])->name('division.store');
-    Route::get('/add-district', [DistrictController::class, 'store'])->name('district.store');
-    Route::get('/add-thana', [ThanaController::class, 'store'])->name('thana.store');
+    Route::get('/add-division', [DivisionController::class, 'index'])->name('pages.add-division');
+    Route::get('/add-district', [DistrictController::class, 'create'])->name('pages.add-district');
+    Route::get('/add-thana', [ThanaController::class, 'create'])->name('pages.add-thana');
+    
+    Route::post('/store-division', [DivisionController::class, 'store'])->name('division.store');
+    Route::post('/store-district', [DistrictController::class, 'store'])->name('district.store');
+    Route::post('/store-thana', [ThanaController::class, 'store'])->name('thana.store');
+    
     Route::get('/get-subcategories/{category_id}', [ProductController::class, 'getSubCategories']);
     
 });

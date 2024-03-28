@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Division;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class DivisionController extends Controller
 {
@@ -12,7 +13,7 @@ class DivisionController extends Controller
      */
     public function index()
     {
-        
+        return view('pages.add-division');
     }
 
     /**
@@ -20,7 +21,20 @@ class DivisionController extends Controller
      */
     public function create()
     {
-        //
+        
+        $request->validate([
+            'name' => 'required',
+        
+        ]);
+    
+        // Create Division
+        $division = Division::create([            //using create already saves the data into the DB
+            'name' => $request->input('name'),
+            'slug' => Str::slug($request->input('name')),
+           
+        ]);
+        
+        return redirect()->back();
     }
 
     /**
@@ -28,7 +42,19 @@ class DivisionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+        
+        ]);
+    
+        // Create Division
+        $division = Division::create([            //using create already saves the data into the DB
+            'name' => $request->input('name'),
+            'slug' => Str::slug($request->input('name')),
+           
+        ]);
+        
+        return redirect()->back();
     }
 
     /**

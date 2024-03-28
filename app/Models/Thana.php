@@ -8,4 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class Thana extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['name', 'slug' , 'district_id'];
+    
+    public function district()
+    {
+        return $this->belongsTo(District::class);
+    }
+
+    public function thana()
+    {
+        return $this->belongsTo(Thana::class);
+    }
 }

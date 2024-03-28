@@ -16,10 +16,7 @@ class CategoryController extends Controller
      {
          return view('layouts.shop');
      }
-     public function index_cart()
-     {
-         return view('pages.cart');
-     }
+         
      public function index_checkout()
      {
          return view('pages.checkout');

@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Thana;
+use App\Models\Division;
+use App\Models\District;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+
 
 class ThanaController extends Controller
 {
@@ -12,7 +16,7 @@ class ThanaController extends Controller
      */
     public function index()
     {
-        //
+        
     }
 
     /**
@@ -20,7 +24,10 @@ class ThanaController extends Controller
      */
     public function create()
     {
-        //
+        $districts= District::all();
+        $divisions= Division::all();
+       
+        return view('pages.add-thana', compact('districts'), compact('divisions'));
     }
 
     /**
@@ -28,7 +35,21 @@ class ThanaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'district_id'=> 'required',
+        
+        ]);
+        //dd($request->input('district_id'));
+        // Create Districts
+        $thanas = Thana::create([            //using create already saves the data into the DB
+            'name' => $request->input('name'),
+            'slug' => Str::slug($request->input('name')),
+            'district_id'=> ($request->input('district_id')),
+           
+        ]);
+        
+        return redirect()->back();
     }
 
     /**
@@ -36,7 +57,6 @@ class ThanaController extends Controller
      */
     public function show(Thana $thana)
     {
-        //
     }
 
     /**

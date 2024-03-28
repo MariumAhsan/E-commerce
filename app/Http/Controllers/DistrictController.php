@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\District;
+use App\Models\Division;
+use App\Models\Thana;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
 class DistrictController extends Controller
@@ -12,7 +15,7 @@ class DistrictController extends Controller
      */
     public function index()
     {
-        //
+        //return view('pages.add-division');
     }
 
     /**
@@ -20,7 +23,8 @@ class DistrictController extends Controller
      */
     public function create()
     {
-        //
+        $divisions= Division::all();
+        return view('pages.add-district', compact('divisions'));
     }
 
     /**
@@ -28,7 +32,21 @@ class DistrictController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'division_id'=> 'required',
+        
+        ]);
+        
+        // Create Districts
+        $district = District::create([            //using create already saves the data into the DB
+            'name' => $request->input('name'),
+            'slug' => Str::slug($request->input('name')),
+            'division_id'=> $request->input('division_id'),
+           
+        ]);
+        
+        return redirect()->back();
     }
 
     /**

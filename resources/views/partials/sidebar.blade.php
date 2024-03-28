@@ -106,7 +106,7 @@
                 </a>
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{{route('pages.add-division')}}" class="nav-link">
                       <i class="far fa-dot-circle nav-icon"></i>
                       <p>Add new Division</p>
                     </a>
@@ -135,7 +135,7 @@
                 </a>
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{{route('pages.add-district')}}" class="nav-link">
                       <i class="far fa-dot-circle nav-icon"></i>
                       <p>Add new District</p>
                     </a>
@@ -164,7 +164,7 @@
                 </a>
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{{route('pages.add-thana')}}" class="nav-link">
                       <i class="far fa-dot-circle nav-icon"></i>
                       <p>Add a new thana/upazila</p>
                     </a>

@@ -42,9 +42,15 @@
         <div class="row flex-row-reverse">
             <div class="col-lg-4-5">
                 <div class="shop-product-fillter">
+                    @if (empty($searchKey))
                     <div class="totall-product">
-                        <p>We found <strong class="text-brand">29</strong> items for you!</p>
+                        <p>We found <strong class="text-brand">{{ $totalProduct }}</strong> items for you!</p>
                     </div>
+                    @else
+                    <div class="totall-product">
+                        <p>Your search for "<strong class="text-brand">{{ $searchKey }}</strong>" has <strong class="text-brand">{{ $totalProduct }}</strong> items !</p>
+                    </div>
+                    @endif
                     <div class="sort-by-product-area">
                         <div class="sort-by-cover mr-10">
                             <div class="sort-by-product-wrap">

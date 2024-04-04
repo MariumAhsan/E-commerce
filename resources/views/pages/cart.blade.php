@@ -105,7 +105,6 @@
                 <div class="divider-2 mb-30"></div>
                 <div class="cart-action d-flex justify-content-between">
                     <a href="{{route('pages.shop-grid-left')}}" class="btn "><i class="fi-rs-arrow-left mr-10"></i>Continue Shopping</a>
-                    <a class="btn  mr-10 mb-sm-15"><i class="fi-rs-refresh mr-10"></i>Update Cart</a>
                 </div>
                 
             </div>
@@ -130,7 +129,7 @@
                             </tbody>
                         </table>
                     </div>
-                    <a href="#" class="btn mb-20 w-100">Proceed To CheckOut<i class="fi-rs-sign-out ml-15"></i></a>
+                    <a href="/checkout" class="btn mb-20 w-100">Proceed To CheckOut<i class="fi-rs-sign-out ml-15"></i></a>
                 </div>
             </div>
         </div>

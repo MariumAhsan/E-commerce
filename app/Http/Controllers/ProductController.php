@@ -127,8 +127,8 @@ class ProductController extends Controller
     {
 
         $productData = Product::orderBy('id', 'desc')->get();   // Sort by ID in descending order
-
-        return view('pages.shop-grid-left', compact('productData'));
+        $totalProduct = $productData->count();
+        return view('pages.shop-grid-left', compact('productData', 'totalProduct'));
     }
 
     public function view_single_product($slug)
@@ -173,5 +173,19 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         //
+    }
+    public function search(Request $request)
+    {
+        $searchKey=$request->input('name');
+        $productData = Product::orWhere('name', 'like', '%'.$searchKey.'%')
+                            ->orWhere('slug', 'like', '%'.$searchKey.'%')
+                            ->orWhere('short_description', 'like', '%'.$searchKey.'%')
+                            ->orWhere('long_description', 'like', '%'.$searchKey.'%')
+                            ->orWhere('product_tags', 'like', '%'.$searchKey.'%')
+                            ->orderBy('id', 'desc')
+                            ->where('status', 1)
+                            ->get();
+        $totalProduct = $productData->count();
+        return view('pages.shop-grid-left', compact('productData','totalProduct','searchKey'));
     }
 }

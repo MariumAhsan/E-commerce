@@ -162,22 +162,13 @@
                     <a href="{{route('pages.shop-grid-left')}}"><img src="{{asset('assets')}}/assets/imgs/theme/logo.svg" alt="logo" /></a>
                 </div>
                 <div class="header-right">
-                    <div class="search-style-2">
-                        <form action="#">
-                            <select class="select-active">
-                                <option>All Categories</option>
-                                <option>Milks and Dairies</option>
-                                <option>Wines & Alcohol</option>
-                                <option>Clothing & Beauty</option>
-                                <option>Pet Foods & Toy</option>
-                                <option>Fast food</option>
-                                <option>Baking material</option>
-                                <option>Vegetables</option>
-                                <option>Fresh Seafood</option>
-                                <option>Noodles & Rice</option>
-                                <option>Ice cream</option>
-                            </select>
-                            <input type="text" placeholder="Search for items..." />
+                    <div class="search-style-1">
+                        <form method="POST" action="{{ route('product.search')}}">
+                            @csrf  
+                            <input type="text" name="name" placeholder="Search for items..." />
+                            <button type="submit">
+                                <i class="fi-rs-search"></i> 
+                            </button>
                         </form>
                     </div>
                     <div class="header-action-right">

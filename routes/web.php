@@ -7,6 +7,8 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DivisionController;
 use App\Http\Controllers\DistrictController;
 use App\Http\Controllers\ThanaController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\CouponController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\CartController;
 /*
@@ -54,6 +56,9 @@ Route::middleware('auth', 'admin')->group(function () {
     Route::post('/store-thana', [ThanaController::class, 'store'])->name('thana.store');
     
     Route::get('/get-subcategories/{category_id}', [ProductController::class, 'getSubCategories']);
+
+    Route::get('/add-coupon', [CouponController::class, 'index'])->name('pages.add-coupon');
+    Route::post('/store-coupon', [CouponController::class, 'store'])->name('coupon.store');
     
 });
 
@@ -61,11 +66,17 @@ Route::middleware('auth', 'admin')->group(function () {
 
 Route::get('/shop', [CategoryController::class, 'index'])->name('layouts.shop');
 Route::get('/cart', [CategoryController::class, 'index_cart'])->name('pages.cart'); //edit and show left
-Route::get('/checkout', [CategoryController::class, 'index_checkout'])->name('pages.checkout'); //incomplete
+Route::get('/checkout', [OrderController::class, 'index'])->name('pages.checkout'); //incomplete
+
+Route::get('/get-districts/{division_id}', [OrderController::class, 'getDistricts']);
+Route::get('/get-thanas/{district_id}', [OrderController::class, 'getThanas']);
+
+
 Route::get('/shop-grid-left', [ProductController::class, 'show'])->name('pages.shop-grid-left'); //done
 Route::get('/single-product/{slug}', [ProductController::class, 'view_single_product'])->name('pages.single-product'); // almost
 
 Route::resource('carts', CartController::class);
 Route::post('/cart/{product_id}', [CartController::class, 'store'])->name('store.cart');
+Route::post('/search', [ProductController:: class, 'search'])->name('product.search');
 
 require __DIR__.'/auth.php';

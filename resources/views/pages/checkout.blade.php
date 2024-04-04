@@ -1,6 +1,6 @@
 @extends('layouts.shop-main')
 @section('content')
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <main class="main">
     <div class="page-header breadcrumb-wrap">
         <div class="container">
@@ -64,56 +64,52 @@
                     <h4 class="mb-30">Billing Details</h4>
                     <form method="post">
                         <div class="row">
-                            <div class="form-group col-lg-6">
-                                <input type="text" required="" name="fname" placeholder="First name *">
-                            </div>
-                            <div class="form-group col-lg-6">
-                                <input type="text" required="" name="lname" placeholder="Last name *">
+                            <div class="form-group col-lg-12">
+                                <input type="text" required="" name="name" placeholder="Name *">
                             </div>
                         </div>
                         <div class="row">
                             <div class="form-group col-lg-6">
-                                <input required="" type="text" name="phone" placeholder="Phone *">
+                                <input required="" type="text" name="phone_number" placeholder="Phone *">
                             </div>
                             <div class="form-group col-lg-6">
                                 <input required="" type="text" name="email" placeholder="Email address *">
                             </div> 
                         </div>  
                         <div class="row">
-                            <div class="form-group col-lg-12">
-                                <input type="text" name="billing_address" required="" placeholder="Address *">
+                            <div class="form-group col-lg-6">
+                                <input type="text" name="address" required="" placeholder="Address *">
+                            </div>
+                            <div class="form-group col-lg-6">
+                                <input type="text" name="post_code" required="" placeholder="Postal code *">
                             </div>
                         </div>
-                        <div class="row shipping_calculator">
-                            <div class="form-group col-lg-4">
-                                <div class="custom_select">
-                                    <select class="form-control select-active">
-                                        <option value="">Select thana/upazila...</option>       
-                                        <option value="RW">Rwanda</option>
-                                        <option value="ZW">Zimbabwe</option>
-                                    </select>
-                                </div>
+                    <div class="row shipping_calculator">
+                        <div class="form-group col-lg-4">
+                            <div class="custom_select">
+                                <select class="form-control select-active" id="division_select">
+                                    <option value="">Select division...</option>
+                                    @foreach($divisions as $division)
+                                        <option value="{{ $division->id }}">{{ $division->name }}</option>
+                                    @endforeach
+                                </select>
                             </div>
-                            <div class="form-group col-lg-4">
-                                <div class="custom_select">
-                                    <select class="form-control select-active">
-                                        <option value="">Select district...</option>       
-                                        <option value="RW">Rwanda</option>
-                                        <option value="ZW">Zimbabwe</option>
-                                    </select>
-                                </div>
+                        </div>
+                        <div class="form-group col-lg-4" id="district_container" style="display: none;">
+                            <div class="custom_select">
+                                <select class="form-control select-active" id="district_select">
+                                    <option value="">Select district</option>
+                                </select>
                             </div>
-                            <div class="form-group col-lg-4">
-                                <div class="custom_select">
-                                    <select class="form-control select-active">
-                                        <option value="">Select division...</option>       
-                                        <option value="RW">Rwanda</option>
-                                        <option value="ZW">Zimbabwe</option>
-                                    </select>
-                                </div>
+                        </div>
+                        <div class="form-group col-lg-4" id="thana_container" style="display: none;">
+                            <div class="custom_select">
+                                <select class="form-control select-active" id="thana_select">
+                                    <option value="">Select thana/upazila</option>
+                                </select>
                             </div>
-                        </div> 
-                    </form>
+                        </div>
+                    </div>                        
                 </div>
             </div>
             <div class="col-lg-4">
@@ -139,12 +135,53 @@
                         <img class="mr-15" src="{{asset('assets')}}/assets/imgs/theme/icons/payment-master.svg" alt="">
                         <img src="{{asset('assets')}}/assets/imgs/theme/icons/payment-zapper.svg" alt="">
                     </div>
+                </div>
+                <div class="border p-md-4 cart-totals ml-30">
+                    <div class="table-responsive">
+                        <table class="table no-border">
+                            <tbody>
+                                <tr>
+                                    <td class="cart_total_label">
+                                        <h6 class="text-muted">Amount: </h6>
+                                    </td>
+                                    <td class="cart_total_amount">
+                                        <h4 class="text-brand text-end">Tk.</h4>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="cart_total_label">
+                                        <h6 class="text-muted">Delivery Fee: </h6>
+                                    </td>
+                                    <td class="cart_total_amount">
+                                        <h4 class="text-brand text-end">Tk.</h4>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="cart_total_label">
+                                        <h6 class="text-muted">Total Amount: </h6>
+                                    </td>
+                                    <td class="cart_total_amount">
+                                        <h4 class="text-brand text-end">Tk.</h4>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td scope="col" colspan="2">
+                                        <div class="divider-2 mt-10 mb-10"></div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                     <a href="#" class="btn btn-fill-out btn-block mt-30">Place an Order<i class="fi-rs-sign-out ml-15"></i></a>
                 </div>
-            </div>
+                </div>
+            </form>
         </div>
     </div>
 </main>
 
+<script>
+
+</script>
 
 @endsection

@@ -186,6 +186,30 @@
             </ul>
           </li>
           
+          <li class="nav-header">COUPON MANAGEMENT</li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-circle"></i>
+              <p>
+                Set Coupon
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="{{route('pages.add-coupon')}}" class="nav-link">
+                <i class="far fa-dot-circle nav-icon"></i>
+                <p>Create new Coupon</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <i class="far fa-dot-circle nav-icon"></i>
+                <p>View Coupon List</p>
+              </a>
+            </li>
+          </ul>
+        </li>
           <div class="sidebar-custom">
               <form method="POST" action="{{ route('logout') }}">
                 @csrf

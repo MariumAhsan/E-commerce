@@ -102,11 +102,10 @@
     <div class="banner-img wow fadeIn mb-lg-0 animated d-lg-block d-none">
         <img src="{{asset('assets')}}/assets/imgs/banner/banner-11.png" alt="" />
         <div class="banner-text">
-            <span>Oganic</span>
             <h4>
-                Save 17% <br />
-                on <span class="text-brand">Oganic</span><br />
-                Juice
+                Save 10% <br />
+                on <span class="text-brand">M.A.C</span><br />
+                Lipstick
             </h4>
         </div>
     </div>

@@ -3,38 +3,7 @@
 
 <main class="main">
     <div class="page-header mt-30 mb-50">
-        <div class="container">
-            <div class="archive-header">
-                <div class="row align-items-center">
-                    <div class="col-xl-3">
-                        <h1 class="mb-15">Snack</h1>
-                        <div class="breadcrumb">
-                            <a href="index.html" rel="nofollow"><i class="fi-rs-home mr-5"></i>Home</a>
-                            <span></span> Shop <span></span> Snack
-                        </div>
-                    </div>
-                    <div class="col-xl-9 text-end d-none d-xl-block">
-                        <ul class="tags-list">
-                            <li class="hover-up">
-                                <a href="blog-category-grid.html"><i class="fi-rs-cross mr-10"></i>Cabbage</a>
-                            </li>
-                            <li class="hover-up active">
-                                <a href="blog-category-grid.html"><i class="fi-rs-cross mr-10"></i>Broccoli</a>
-                            </li>
-                            <li class="hover-up">
-                                <a href="blog-category-grid.html"><i class="fi-rs-cross mr-10"></i>Artichoke</a>
-                            </li>
-                            <li class="hover-up">
-                                <a href="blog-category-grid.html"><i class="fi-rs-cross mr-10"></i>Celery</a>
-                            </li>
-                            <li class="hover-up mr-0">
-                                <a href="blog-category-grid.html"><i class="fi-rs-cross mr-10"></i>Spinach</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
+        
     </div>
     
 
@@ -113,19 +82,15 @@
                                 </div>
                             </div>
                             <div class="product-content-wrap">
-                                <div class="product-category">
-                                    <a href="{{route('pages.single-product', $product->slug)}}">{{$product->name}}</a> 
-                                </div>
-                                <h2><a href="{{route('pages.single-product', $product->slug)}}">{{$product->short_description}}</a></h2>
+                                
+                                <h2><a href="{{route('pages.single-product', $product->slug)}}">{{$product->name}}</a></h2>
                                 <div class="product-rate-cover">
                                     <div class="product-rate d-inline-block">
                                         <div class="product-rating" style="width: 90%"></div>
                                     </div>
                                     <span class="font-small ml-5 text-muted"> (4.0)</span>
                                 </div>
-                                <div>
-                                    <span class="font-small text-muted">By <a href="vendor-details-1.html">NestFood</a></span>
-                                </div>
+                               
                                 <div class="product-card-bottom">
                                     <div class="product-price">
                                         <span>Tk.{{$product->offer_price}}</span>
@@ -144,48 +109,7 @@
                     </div>
                     @endforeach
                     <!--end product card-->
-                    <div class="col-lg-1-5 col-md-4 col-12 col-sm-6 d-none d-xl-block">
-                        <div class="product-cart-wrap">
-                            <div class="product-img-action-wrap">
-                                <div class="product-img product-img-zoom">
-                                    <a href="shop-product-right.html">
-                                        <img class="default-img" src="{{asset('assets')}}/assets/imgs/shop/product-10-1.jpg" alt="" />
-                                        <img class="hover-img" src="{{asset('assets')}}/assets/imgs/shop/product-10-2.jpg" alt="" />
-                                    </a>
-                                </div>
-                                <div class="product-action-1">
-                                    <a aria-label="Add To Wishlist" class="action-btn" href="shop-wishlist.html"><i class="fi-rs-heart"></i></a>
-                                    <a aria-label="Compare" class="action-btn" href="shop-compare.html"><i class="fi-rs-shuffle"></i></a>
-                                    <a aria-label="Quick view" class="action-btn" data-bs-toggle="modal" data-bs-target="#quickViewModal"><i class="fi-rs-eye"></i></a>
-                                </div>
-                            </div>
-                            <div class="product-content-wrap">
-                                <div class="product-category">
-                                    <a href="shop-grid-right.html">Cream</a>
-                                </div>
-                                <h2><a href="shop-product-right.html">Haagen-Dazs Caramel Cone Ice Cream</a></h2>
-                                <div class="product-rate-cover">
-                                    <div class="product-rate d-inline-block">
-                                        <div class="product-rating" style="width: 50%"></div>
-                                    </div>
-                                    <span class="font-small ml-5 text-muted"> (2.0)</span>
-                                </div>
-                                <div>
-                                    <span class="font-small text-muted">By <a href="vendor-details-1.html">Tyson</a></span>
-                                </div>
-                                <div class="product-card-bottom">
-                                    <div class="product-price">
-                                        <span>$22.85</span>
-                                        <span class="old-price">$24.8</span>
-                                    </div>
-                                    <div class="add-cart">
-                                        <a class="add" href="shop-cart.html"><i class="fi-rs-shopping-cart mr-5"></i>Add </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--end product card-->
+                   
                 </div>
                 <!--product grid-->
                 <div class="pagination-area mt-20 mb-20">
@@ -219,7 +143,7 @@
                                 <div class="product-img-action-wrap">
                                     <div class="product-img">
                                         <a href="shop-product-right.html">
-                                            <img src="{{asset('assets')}}/assets/imgs/banner/banner-5.png" alt="" />
+                                            <img src="{{asset('assets')}}/assets/imgs/banner/banner-5.jpg" alt="" width="293" height="266" />
                                         </a>
                                     </div>
                                 </div>
@@ -228,7 +152,7 @@
                                         <div class="deals-countdown" data-countdown="2025/03/25 00:00:00"></div>
                                     </div>
                                     <div class="deals-content">
-                                        <h2><a href="shop-product-right.html">Seeds of Change Organic Quinoa, Brown</a></h2>
+                                        <h2><a href="shop-product-right.html">Eyeshadow Palette Crème-to-Powder Eyeshadow 6 Color</a></h2>
                                         <div class="product-rate-cover">
                                             <div class="product-rate d-inline-block">
                                                 <div class="product-rating" style="width: 90%"></div>
@@ -236,7 +160,7 @@
                                             <span class="font-small ml-5 text-muted"> (4.0)</span>
                                         </div>
                                         <div>
-                                            <span class="font-small text-muted">By <a href="vendor-details-1.html">NestFood</a></span>
+                                            <span class="font-small text-muted">By <a href="vendor-details-1.html">Physicians Formula</a></span>
                                         </div>
                                         <div class="product-card-bottom">
                                             <div class="product-price">
@@ -256,7 +180,7 @@
                                 <div class="product-img-action-wrap">
                                     <div class="product-img">
                                         <a href="shop-product-right.html">
-                                            <img src="{{asset('assets')}}/assets/imgs/banner/banner-6.png" alt="" />
+                                            <img src="{{asset('assets')}}/assets/imgs/banner/banner-6.jpg" alt="" width="293" height="266"/>
                                         </a>
                                     </div>
                                 </div>
@@ -265,7 +189,7 @@
                                         <div class="deals-countdown" data-countdown="2026/04/25 00:00:00"></div>
                                     </div>
                                     <div class="deals-content">
-                                        <h2><a href="shop-product-right.html">Perdue Simply Smart Organics Gluten</a></h2>
+                                        <h2><a href="shop-product-right.html">ohora Semi Cured Gel Nail Strips 12 pieces with 2 Prep Pads</a></h2>
                                         <div class="product-rate-cover">
                                             <div class="product-rate d-inline-block">
                                                 <div class="product-rating" style="width: 90%"></div>
@@ -273,7 +197,7 @@
                                             <span class="font-small ml-5 text-muted"> (4.0)</span>
                                         </div>
                                         <div>
-                                            <span class="font-small text-muted">By <a href="vendor-details-1.html">Old El Paso</a></span>
+                                            <span class="font-small text-muted">By <a href="vendor-details-1.html">ohora Store</a></span>
                                         </div>
                                         <div class="product-card-bottom">
                                             <div class="product-price">
@@ -293,7 +217,7 @@
                                 <div class="product-img-action-wrap">
                                     <div class="product-img">
                                         <a href="shop-product-right.html">
-                                            <img src="{{asset('assets')}}/assets/imgs/banner/banner-7.png" alt="" />
+                                            <img src="{{asset('assets')}}/assets/imgs/banner/banner-7.jpg" alt="" width="293" height="266"/>
                                         </a>
                                     </div>
                                 </div>
@@ -302,7 +226,7 @@
                                         <div class="deals-countdown" data-countdown="2027/03/25 00:00:00"></div>
                                     </div>
                                     <div class="deals-content">
-                                        <h2><a href="shop-product-right.html">Signature Wood-Fired Mushroom</a></h2>
+                                        <h2><a href="shop-product-right.html">Julep Eyeshadow 101 Crème-to-Powder Eyeshadow 6 Piece Set</a></h2>
                                         <div class="product-rate-cover">
                                             <div class="product-rate d-inline-block">
                                                 <div class="product-rating" style="width: 80%"></div>
@@ -330,7 +254,7 @@
                                 <div class="product-img-action-wrap">
                                     <div class="product-img">
                                         <a href="shop-product-right.html">
-                                            <img src="{{asset('assets')}}/assets/imgs/banner/banner-8.png" alt="" />
+                                            <img src="{{asset('assets')}}/assets/imgs/banner/banner-8.jpg" alt="" width="293" height="266"/>
                                         </a>
                                     </div>
                                 </div>
@@ -339,7 +263,7 @@
                                         <div class="deals-countdown" data-countdown="2025/02/25 00:00:00"></div>
                                     </div>
                                     <div class="deals-content">
-                                        <h2><a href="shop-product-right.html">Simply Lemonade with Raspberry Juice</a></h2>
+                                        <h2><a href="shop-product-right.html">Makeup Sponge Set BS-MALL Blender Sponges 7 Pcs</a></h2>
                                         <div class="product-rate-cover">
                                             <div class="product-rate d-inline-block">
                                                 <div class="product-rating" style="width: 80%"></div>
@@ -347,7 +271,7 @@
                                             <span class="font-small ml-5 text-muted"> (3.0)</span>
                                         </div>
                                         <div>
-                                            <span class="font-small text-muted">By <a href="vendor-details-1.html">Yoplait</a></span>
+                                            <span class="font-small text-muted">By <a href="vendor-details-1.html">BS-MALL</a></span>
                                         </div>
                                         <div class="product-card-bottom">
                                             <div class="product-price">
@@ -429,11 +353,11 @@
                 <div class="banner-img wow fadeIn mb-lg-0 animated d-lg-block d-none">
                     <img src="{{asset('assets')}}/assets/imgs/banner/banner-11.png" alt="" />
                     <div class="banner-text">
-                        <span>Organic</span>
+                       
                         <h4>
-                            Save 17% <br />
-                            on <span class="text-brand">Organic</span><br />
-                            Juice
+                            Save 10% <br />
+                            on <span class="text-brand">M.A.C</span><br />
+                            Lipstick
                         </h4>
                     </div>
                 </div>

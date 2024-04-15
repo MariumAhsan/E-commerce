@@ -255,12 +255,18 @@
                                 <a href="page-account.html">
                                     <img class="svgInject" alt="Nest" src="{{asset('assets')}}/assets/imgs/theme/icons/icon-user.svg" />
                                 </a>
-                                <a href="page-account.html"><span class="lable ml-0">Account</span></a>
+                                <a href=""><span class="lable ml-0">Account</span></a>
                                 <div class="cart-dropdown-wrap cart-dropdown-hm2 account-dropdown">
                                     <ul>
-                                        <li>
-                                            <a href="{{route('register')}}"><i class="fi fi-rs-user mr-10"></i>My Account</a>
-                                        </li>
+                                        @if(auth()->check())
+                                            <li>
+                                                <a href="{{ route('pages.userProfile') }}"><i class="fi fi-rs-user mr-10"></i>{{ auth()->user()->name }}</a>
+                                            </li>
+                                        @else
+                                            <li>
+                                                <a href="{{ route('register') }}"><i class="fi fi-rs-user mr-10"></i>My Account</a>
+                                            </li>
+                                        @endif
                                         <li>
                                             <a href="page-account.html"><i class="fi fi-rs-location-alt mr-10"></i>Order Tracking</a>
                                         </li>

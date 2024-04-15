@@ -48,4 +48,15 @@ class RegisteredUserController extends Controller
 
         return redirect(RouteServiceProvider::HOME);
     }
+
+    public function update(Request $request){
+
+    
+            $user = User::update([
+                'phone_number' => $request->phone_number,
+                'address' => $request->address,
+            ]);
+
+            return redirect()->back();
+        }
 }

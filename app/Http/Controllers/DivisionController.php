@@ -37,6 +37,12 @@ class DivisionController extends Controller
         return redirect()->back();
     }
 
+    public function try(){
+
+        return view('/userProfile');
+    }
+
+
     /**
      * Store a newly created resource in storage.
      */

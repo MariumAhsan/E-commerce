@@ -30,10 +30,10 @@
                         <div class="single-hero-slider single-animation-wrap" style="background-image: url('{{asset('assets/assets/imgs/slider/slider-1.png')}}')">
                             <div class="slider-content">
                                 <h1 class="display-2 mb-40">
-                                    Don’t miss amazing<br />
-                                    grocery deals
+                                   <br />
+                                  
                                 </h1>
-                                <p class="mb-65">Sign up for the daily newsletter</p>
+                                <p class="mb-65"></p>
                                 <form class="form-subcriber d-flex">
                                     <input type="email" placeholder="Your emaill address" />
                                     <button class="btn" type="submit">Subscribe</button>
@@ -43,10 +43,10 @@
                         <div class="single-hero-slider single-animation-wrap" style="background-image: url('{{asset('assets/assets/imgs/slider/slider-2.png')}}')">
                             <div class="slider-content">
                                 <h1 class="display-2 mb-40">
-                                    Fresh Vegetables<br />
-                                    Big discount
+                                    <br />
+                                  
                                 </h1>
-                                <p class="mb-65">Save up to 50% off on your first order</p>
+                                <p class="mb-65"></p>
                                 <form class="form-subcriber d-flex">
                                     <input type="email" placeholder="Your emaill address" />
                                     <button class="btn" type="submit">Subscribe</button>
@@ -162,7 +162,7 @@
                 <div class="row">
                     <div class="col-lg-4 col-md-6">
                         <div class="banner-img wow animate__animated animate__fadeInUp" data-wow-delay="0">
-                            <img src="{{asset('assets')}}/assets/imgs/banner/banner-1.png" alt="" />
+                            <img src="{{asset('assets')}}/assets/imgs/banner/banner-1.png" alt="" width="512" height="300"/>
                             <div class="banner-text">
                                 <h4>
                                     Everyday Fresh & <br />Clean with Our<br />
@@ -174,7 +174,7 @@
                     </div>
                     <div class="col-lg-4 col-md-6">
                         <div class="banner-img wow animate__animated animate__fadeInUp" data-wow-delay=".2s">
-                            <img src="{{asset('assets')}}/assets/imgs/banner/banner-2.png" alt="" />
+                            <img src="{{asset('assets')}}/assets/imgs/banner/banner-2.png" alt="" width="512" height="300"/>
                             <div class="banner-text">
                                 <h4>
                                     Make your Breakfast<br />
@@ -186,7 +186,7 @@
                     </div>
                     <div class="col-lg-4 d-md-none d-lg-flex">
                         <div class="banner-img mb-sm-0 wow animate__animated animate__fadeInUp" data-wow-delay=".4s">
-                            <img src="{{asset('assets')}}/assets/imgs/banner/banner-3.png" alt="" />
+                            <img src="{{asset('assets')}}/assets/imgs/banner/banner-3.jpeg" alt="" width="512" height="300"/>
                             <div class="banner-text">
                                 <h4>The best Organic <br />Products Online</h4>
                                 <a href="shop-grid-right.html" class="btn btn-xs">Shop Now <i class="fi-rs-arrow-small-right"></i></a>
@@ -3997,7 +3997,7 @@
                             <div class="product-img-action-wrap">
                                 <div class="product-img">
                                     <a href="shop-product-right.html">
-                                        <img src="{{asset('assets')}}/assets/imgs/banner/banner-5.png" alt="" />
+                                        <img src="{{asset('assets')}}/assets/imgs/banner/banner-5.jpg" alt="" width="379" height="335" />
                                     </a>
                                 </div>
                             </div>
@@ -4006,15 +4006,15 @@
                                     <div class="deals-countdown" data-countdown="2025/03/25 00:00:00"></div>
                                 </div>
                                 <div class="deals-content">
-                                    <h2><a href="shop-product-right.html">Seeds of Change Organic Quinoa, Brown, & Red Rice</a></h2>
+                                    <h2><a href="shop-product-right.html">Eyeshadow Palette Crème-to-Powder Eyeshadow 6 Color</a></h2>
                                     <div class="product-rate-cover">
                                         <div class="product-rate d-inline-block">
                                             <div class="product-rating" style="width: 90%"></div>
                                         </div>
-                                        <span class="font-small ml-5 text-muted"> (4.0)</span>
+                                        <span class="font-small ml-5 text-muted"> (4.5)</span>
                                     </div>
                                     <div>
-                                        <span class="font-small text-muted">By <a href="vendor-details-1.html">NestFood</a></span>
+                                        <span class="font-small text-muted">By <a href="vendor-details-1.html"> Physicians Formula</a></span>
                                     </div>
                                     <div class="product-card-bottom">
                                         <div class="product-price">
@@ -4034,7 +4034,7 @@
                             <div class="product-img-action-wrap">
                                 <div class="product-img">
                                     <a href="shop-product-right.html">
-                                        <img src="{{asset('assets')}}/assets/imgs/banner/banner-6.png" alt="" />
+                                        <img src="{{asset('assets')}}/assets/imgs/banner/banner-6.jpg" alt="" width="379" height="335" />
                                     </a>
                                 </div>
                             </div>
@@ -4043,7 +4043,7 @@
                                     <div class="deals-countdown" data-countdown="2026/04/25 00:00:00"></div>
                                 </div>
                                 <div class="deals-content">
-                                    <h2><a href="shop-product-right.html">Perdue Simply Smart Organics Gluten Free</a></h2>
+                                    <h2><a href="shop-product-right.html">ohora Semi Cured Gel Nail Strips 12 pieces with 2 Prep Pads</a></h2>
                                     <div class="product-rate-cover">
                                         <div class="product-rate d-inline-block">
                                             <div class="product-rating" style="width: 90%"></div>
@@ -4051,7 +4051,7 @@
                                         <span class="font-small ml-5 text-muted"> (4.0)</span>
                                     </div>
                                     <div>
-                                        <span class="font-small text-muted">By <a href="vendor-details-1.html">Old El Paso</a></span>
+                                        <span class="font-small text-muted">By <a href="vendor-details-1.html">ohora Store</a></span>
                                     </div>
                                     <div class="product-card-bottom">
                                         <div class="product-price">
@@ -4071,7 +4071,7 @@
                             <div class="product-img-action-wrap">
                                 <div class="product-img">
                                     <a href="shop-product-right.html">
-                                        <img src="{{asset('assets')}}/assets/imgs/banner/banner-7.png" alt="" />
+                                        <img src="{{asset('assets')}}/assets/imgs/banner/banner-7.jpg" alt="" width="379" height="335"/>
                                     </a>
                                 </div>
                             </div>
@@ -4080,7 +4080,7 @@
                                     <div class="deals-countdown" data-countdown="2027/03/25 00:00:00"></div>
                                 </div>
                                 <div class="deals-content">
-                                    <h2><a href="shop-product-right.html">Signature Wood-Fired Mushroom and Caramelized</a></h2>
+                                    <h2><a href="shop-product-right.html">Julep Eyeshadow 101 Crème-to-Powder Eyeshadow 6 Piece Set</a></h2>
                                     <div class="product-rate-cover">
                                         <div class="product-rate d-inline-block">
                                             <div class="product-rating" style="width: 80%"></div>
@@ -4108,7 +4108,7 @@
                             <div class="product-img-action-wrap">
                                 <div class="product-img">
                                     <a href="shop-product-right.html">
-                                        <img src="{{asset('assets')}}/assets/imgs/banner/banner-8.png" alt="" />
+                                        <img src="{{asset('assets')}}/assets/imgs/banner/banner-8.jpg" alt="" width="379" height="335"/>
                                     </a>
                                 </div>
                             </div>
@@ -4117,7 +4117,7 @@
                                     <div class="deals-countdown" data-countdown="2025/02/25 00:00:00"></div>
                                 </div>
                                 <div class="deals-content">
-                                    <h2><a href="shop-product-right.html">Simply Lemonade with Raspberry Juice</a></h2>
+                                    <h2><a href="shop-product-right.html">Makeup Sponge Set BS-MALL Blender Sponges 7 Pcs</a></h2>
                                     <div class="product-rate-cover">
                                         <div class="product-rate d-inline-block">
                                             <div class="product-rating" style="width: 80%"></div>
@@ -4125,7 +4125,7 @@
                                         <span class="font-small ml-5 text-muted"> (3.0)</span>
                                     </div>
                                     <div>
-                                        <span class="font-small text-muted">By <a href="vendor-details-1.html">Yoplait</a></span>
+                                        <span class="font-small text-muted">By <a href="vendor-details-1.html">BS-MALL</a></span>
                                     </div>
                                     <div class="product-card-bottom">
                                         <div class="product-price">

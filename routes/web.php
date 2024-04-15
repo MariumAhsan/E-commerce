@@ -78,5 +78,8 @@ Route::get('/single-product/{slug}', [ProductController::class, 'view_single_pro
 Route::resource('carts', CartController::class);
 Route::post('/cart/{product_id}', [CartController::class, 'store'])->name('store.cart');
 Route::post('/search', [ProductController:: class, 'search'])->name('product.search');
+Route::get('/user-account', [DivisionController::class, 'try'])->name('pages.userProfile');
+
+
 
 require __DIR__.'/auth.php';

@@ -107,9 +107,11 @@ class ProductController extends Controller
      * Display the specified resource.
      */
     public function getSubCategories($category_id)
-    {
-        $subcategories = Subcategory::where('category_id', $category_id)->get();
+{
+    // Fetch subcategories for the given category_id
+    $subcategories = Subcategory::where('category_id', $category_id)->get();
 
+    // Map the subcategories to an array containing only id and name
     $subcategoriesArray = $subcategories->map(function ($subcategory) {
         return [
             'id' => $subcategory->id,
@@ -117,8 +119,10 @@ class ProductController extends Controller
         ];
     });
 
+    // Return the subcategories array as a JSON response
     return response()->json($subcategoriesArray);
-    }
+}
+
 
     /**
      * Show the form for editing the specified resource.

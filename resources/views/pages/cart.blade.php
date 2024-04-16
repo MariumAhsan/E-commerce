@@ -25,45 +25,50 @@
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-lg-8">
-                @if ($cartItems->isEmpty())
-                    <p>Your cart is empty.</p>
-                @else
-                <div class="table-responsive shopping-summery">
-                    <table class="table table-wishlist">
-                        <thead>
-                            <tr class="main-heading">
-                                <th class="custome-checkbox start pl-30">
-                                    <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox11" value="">
-                                    <label class="form-check-label" for="exampleCheckbox11"></label>
-                                </th>
-                                <th scope="col" colspan="2">Product</th>
-                                <th scope="col">Unit Price</th>
-                                <th scope="col">Quantity</th>
-                                <th scope="col">Update</th>
-                                <th scope="col">Subtotal</th>
-                                <th scope="col" class="end">Remove</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($cartItems as $cartItem)
-                            @php
-                                $product = $products->firstWhere('id', $cartItem->product_id);
-                            @endphp
-                            <tr class="pt-30">
-                                <td class="custome-checkbox pl-30">
-                                    <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox1" value="">
-                                    <label class="form-check-label" for="exampleCheckbox1"></label>
-                                </td>
-                                <td class="image product-thumbnail pt-40"><img src="{{ asset('assets/images/' . $product->images->first()->image) }}" alt="Image" width="150" height="100"></td>
-                                <td class="product-des product-name">
-                                    <h6 class="mb-5"><a class="product-name mb-10 text-heading" href="shop-product-right.html">{{$product->name}}</a></h6>
-                                    <div class="product-rate-cover">
-                                        <div class="product-rate d-inline-block">
-                                            <div class="product-rating" style="width:90%">
+    
+        @if ($cartItems->isEmpty())
+            <p>Your cart is empty.</p>
+            <div class="divider-2 mb-30"></div>
+            <div class="cart-action d-flex justify-content-between">
+                <a href="{{route('pages.shop-grid-left')}}" class="btn "><i class="fi-rs-arrow-left mr-10"></i>Continue Shopping</a>
+            </div>  
+        @else
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="table-responsive shopping-summery">
+                        <table class="table table-wishlist">
+                            <thead>
+                                <tr class="main-heading">
+                                    <th class="custome-checkbox start pl-30">
+                                        <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox11" value="">
+                                        <label class="form-check-label" for="exampleCheckbox11"></label>
+                                    </th>
+                                    <th scope="col" colspan="2">Product</th>
+                                    <th scope="col">Unit Price</th>
+                                    <th scope="col">Quantity</th>
+                                    <th scope="col">Update</th>
+                                    <th scope="col">Subtotal</th>
+                                    <th scope="col" class="end">Remove</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($cartItems as $cartItem)
+                                @php
+                                    $product = \App\Models\Product::firstWhere('id', $cartItem->product_id);
+                                @endphp
+                                <tr class="pt-30">
+                                    <td class="custome-checkbox pl-30">
+                                        <input class="form-check-input" type="checkbox" name="checkbox" id="exampleCheckbox1" value="">
+                                        <label class="form-check-label" for="exampleCheckbox1"></label>
+                                    </td>
+                                    <td class="image product-thumbnail pt-40"><img src="{{ asset('assets/images/' . $product->images->first()->image) }}" alt="Image" width="150" height="100"></td>
+                                    <td class="product-des product-name">
+                                        <h6 class="mb-5"><a class="product-name mb-10 text-heading" href="shop-product-right.html">{{$product->name}}</a></h6>
+                                        <div class="product-rate-cover">
+                                            <div class="product-rate d-inline-block">
+                                                <div class="product-rating" style="width:90%">
+                                                </div>
                                             </div>
-                                        </div>
                                         <span class="font-small ml-5 text-muted"> (4.0)</span>
                                     </div>
                                 </td>
@@ -100,15 +105,15 @@
                             @endforeach
                         </tbody>
                     </table>
-                    @endif
-                </div>
+                    
+                    </div>
                 <div class="divider-2 mb-30"></div>
                 <div class="cart-action d-flex justify-content-between">
                     <a href="{{route('pages.shop-grid-left')}}" class="btn "><i class="fi-rs-arrow-left mr-10"></i>Continue Shopping</a>
+                </div>  
                 </div>
-                
-            </div>
-            <div class="col-lg-4">
+
+                <div class="col-lg-4">
                 <div class="border p-md-4 cart-totals ml-30">
                     <div class="table-responsive">
                         <table class="table no-border">
@@ -131,8 +136,9 @@
                     </div>
                     <a href="/checkout" class="btn mb-20 w-100">Proceed To CheckOut<i class="fi-rs-sign-out ml-15"></i></a>
                 </div>
+                </div>
             </div>
-        </div>
+        @endif  
     </div>
 </main>
 @endsection

@@ -65,7 +65,7 @@ Route::middleware('auth', 'admin')->group(function () {
 
 
 Route::get('/shop', [CategoryController::class, 'index'])->name('layouts.shop');
-Route::get('/cart', [CategoryController::class, 'index_cart'])->name('pages.cart'); //edit and show left
+Route::get('/cart', [CartController::class, 'show'])->name('pages.cart'); 
 Route::get('/checkout', [OrderController::class, 'index'])->name('pages.checkout'); //incomplete
 
 Route::get('/get-districts/{division_id}', [OrderController::class, 'getDistricts']);

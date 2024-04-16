@@ -149,13 +149,17 @@
                 <div class="footer-link-widget col wow animate__animated animate__fadeInUp" data-wow-delay=".4s">
                     <h4 class="widget-title">Popular</h4>
                     <ul class="footer-list mb-sm-5 mb-md-0">
-                        <li><a href="#">Milk & Flavoured Milk</a></li>
-                        <li><a href="#">Butter and Margarine</a></li>
-                        <li><a href="#">Eggs Substitutes</a></li>
-                        <li><a href="#">Marmalades</a></li>
-                        <li><a href="#">Sour Cream and Dips</a></li>
-                        <li><a href="#">Tea & Kombucha</a></li>
-                        <li><a href="#">Cheese</a></li>
+                        @php
+                        use App\Models\Category;
+                        use App\Models\SubCategory;
+                        
+                        $categories = Category::with('subcategories')->get()
+                        @endphp
+                        @foreach($categories as $category)
+                        <li>
+                            <a href="#">{{$category->name}}</a>
+                        </li>
+                        @endforeach
                     </ul>
                 </div>
                 <div class="footer-link-widget widget-install-app col wow animate__animated animate__fadeInUp" data-wow-delay=".5s">
@@ -176,7 +180,7 @@
                 <div class="footer-bottom"></div>
             </div>
             <div class="col-xl-4 col-lg-6 col-md-6">
-                <p class="font-sm mb-0">&copy; 2022, <strong class="text-brand">Nest</strong> - HTML Ecommerce Template <br />All rights reserved</p>
+                <p class="font-sm mb-0">&copy; 2024, <strong class="text-brand">Aurora</strong> - HTML Ecommerce Website <br />All rights reserved</p>
             </div>
             <div class="col-xl-4 col-lg-6 text-center d-none d-xl-block">
                 <div class="hotline d-lg-inline-flex mr-30">

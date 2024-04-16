@@ -108,7 +108,7 @@ class ProductController extends Controller
      */
     public function getSubCategories($category_id)
 {
-    // Fetch subcategories for the given category_id
+    
     $subcategories = Subcategory::where('category_id', $category_id)->get();
 
     // Map the subcategories to an array containing only id and name
@@ -129,10 +129,10 @@ class ProductController extends Controller
      */
     public function show()
     {
-
+        $categories = Category::all();
         $productData = Product::orderBy('id', 'desc')->get();   // Sort by ID in descending order
         $totalProduct = $productData->count();
-        return view('pages.shop-grid-left', compact('productData', 'totalProduct'));
+        return view('pages.shop-grid-left', compact('productData', 'totalProduct', 'categories'));
     }
 
     public function view_single_product($slug)

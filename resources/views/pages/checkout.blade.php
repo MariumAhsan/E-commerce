@@ -57,7 +57,7 @@
                     <div class="col-lg-6">
                         <form method="post" class="apply-coupon">
                             <input type="text" name="code" placeholder="Coupon Code...">
-                            <button class="btn  btn-md" type="submit" name="login">Apply Coupon</button>
+                            <button class="btn  btn-md" type="submit" name="login">Apply</button>
                         </form>
                     </div>
                 </div>

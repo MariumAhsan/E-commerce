@@ -1,6 +1,7 @@
 @extends('layouts.shop-main')
 @section('content')
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <main class="main">
     <div class="page-header breadcrumb-wrap">
         <div class="container">
@@ -55,8 +56,8 @@
                     </div>
                     <div class="col-lg-6">
                         <form method="post" class="apply-coupon">
-                            <input type="text" placeholder="Enter Coupon Code...">
-                            <button class="btn  btn-md" name="login">Apply Coupon</button>
+                            <input type="text" name="code" placeholder="Coupon Code...">
+                            <button class="btn  btn-md" type="submit" name="login">Apply Coupon</button>
                         </form>
                     </div>
                 </div>
@@ -84,30 +85,31 @@
                                 <input type="text" name="post_code" required="" placeholder="Postal code *">
                             </div>
                         </div>
-                    <div class="row shipping_calculator">
-                        <div class="form-group col-lg-4">
-                            <div class="custom_select">
-                                <select class="form-control select-active" id="division_select">
-                                    <option value="">Select division...</option>
-                                    @foreach($divisions as $division)
-                                        <option value="{{ $division->id }}">{{ $division->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
+                    <div class="row shipping_calculator">     
+                        <div class="form-group">
+                            <select id="division_id" class="form-control" name="division_id" placeholder="Division..*" required>
+                                <option value="">Select Division</option>
+                                @foreach($divisions as $division)
+                                    <option value="{{ $division->id }}">{{ $division->name }}</option>
+                                @endforeach
+                            </select>
                         </div>
-                        <div class="form-group col-lg-4" id="district_container" style="display: none;">
-                            <div class="custom_select">
-                                <select class="form-control select-active" id="district_select">
-                                    <option value="">Select district</option>
-                                </select>
-                            </div>
+
+                        <div class="form-group">
+                            <select id="district_id" class="form-control " name="district_id" placeholder="District.. *"required>
+                                <option value="">Select district</option>
+                            </select>
                         </div>
-                        <div class="form-group col-lg-4" id="thana_container" style="display: none;">
-                            <div class="custom_select">
-                                <select class="form-control select-active" id="thana_select">
-                                    <option value="">Select thana/upazila</option>
-                                </select>
-                            </div>
+                        <div class="form-group">
+                            
+                            <select id="thana_id" class="form-control" name="thana_id" placeholder="Thana/Upzilla..*" required>
+                                <option value="">Select thana/upzilla </option>
+                            </select>
+                            @error('thana_id')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
                     </div>                        
                 </div>
@@ -182,6 +184,48 @@
 
 <script>
 
+document.getElementById('division_id').addEventListener('change', function() {
+    var divisionId = this.value;
+    var districtDropdown = document.getElementById('district_id');
+    districtDropdown.innerHTML = ''; // Clear existing options
+
+    if (divisionId) {
+        fetch('/get-districts/' + divisionId)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data); 
+                data.forEach(district => {    //receiving array of districts
+                    var option = document.createElement('option');
+                    option.value = district.id;
+                    option.text = district.name;
+                    districtDropdown.add(option);
+                });
+
+            });
+    }
+});
+</script>
+<script>
+document.getElementById('district_id').addEventListener('change', function() {
+    var districtId = this.value;
+    var thanaDropdown = document.getElementById('thana_id');
+    thanaDropdown.innerHTML = ''; // Clear existing options
+
+    if (districtId) {
+        fetch('/get-thanas/' + districtId)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data); 
+                data.forEach(thana => {    //receiving array of districts
+                    var option = document.createElement('option');
+                    option.value = thana.id;
+                    option.text = thana.name;
+                    thanaDropdown.add(option);
+                });
+
+            });
+    }
+});
 </script>
 
 @endsection

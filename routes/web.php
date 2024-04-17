@@ -59,6 +59,10 @@ Route::middleware('auth', 'admin')->group(function () {
 
     Route::get('/add-coupon', [CouponController::class, 'index'])->name('pages.add-coupon');
     Route::post('/store-coupon', [CouponController::class, 'store'])->name('coupon.store');
+    Route::get('/show-coupon', [CouponController::class, 'show'])->name('pages.show-coupon');
+    Route::get('/edit/{id}',[CouponController::class, 'edit'])->name('coupon.edit');
+    Route::post('/update/{id}',[CouponController::class, 'update'])->name('coupon.update');
+    Route::get('/remove/{id}', [CouponController::class, 'remove'])->name('coupon.remove');
     
 });
 

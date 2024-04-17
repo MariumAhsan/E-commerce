@@ -17,14 +17,15 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $divisions= Division::with('districts.thanas')->get();
-        return view('pages.checkout', compact('divisions'));
+        $divisions= Division::all();
+        $districts= District::all();
+        return view('pages.checkout', compact('divisions','districts'));
     }
 
     public function getDistricts($division_id)
     {
-        $districts = Districts::where('division_id', $division_id)->get();
-        dd($districts);
+        $districts = District::where('division_id', $division_id)->get();
+        
         $districtsArray = $districts->map(function ($district) {
             return [
                 'id' => $district->id,
@@ -33,6 +34,7 @@ class OrderController extends Controller
         });
         return response()->json( $districtsArray);
     }
+    
 
     public function getThanas($district_id)
     {

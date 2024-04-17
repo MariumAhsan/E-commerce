@@ -203,7 +203,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="#" class="nav-link">
+              <a href="{{route('pages.show-coupon')}}" class="nav-link">
                 <i class="far fa-dot-circle nav-icon"></i>
                 <p>View Coupon List</p>
               </a>

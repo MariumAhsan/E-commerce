@@ -13,12 +13,11 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->string('phone_number')->nullable();
-            $table->string('address');
+            $table->string('address')->nullable();
             $table->unsignedBigInteger('division_id');
             $table->unsignedBigInteger('district_id');
             $table->unsignedBigInteger('thana_id');
             $table->string('post_code');
-            
             
         });
     }

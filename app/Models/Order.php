@@ -9,18 +9,22 @@ class Order extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'user_id',
-        'name',
-        'email',
-        'phone',
-        'address',
-        'division_id',
-        'district_id',
-        'post_code',
-        'payment_method',
+        'inv_id',
+        'user_id', //
+        'name', //
+        'email', //
+        'phone_number', //
+        'address', //
+        'division_id', //
+        'district_id', //
+        'thana_id', //
+        'post_code', //
+        'payment_method', //
         'status',
         'transaction_id',
-        'amount',
+        'total_price', //
+        'delivery_fee', //
+        'discount_amount', //
         'paid_amount',
     ];
 }

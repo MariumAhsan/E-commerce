@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
+            $table->integer('inv_id')->nullable();
             $table->integer('user_id')->nullable();
             $table->string('name');
             $table->string('email');
@@ -22,12 +23,14 @@ return new class extends Migration
             $table->integer('district_id');
             $table->integer('thana_id');
             $table->string('post_code');
-            $table->string('payment_method');
-            $table->string('status')->default(0)->comment('pending = 0');
+            $table->string('payment_method')->nullable()->comment("1 = COD, 2 = SSL");;
+            $table->string('status')->nullable()->comment("1=Pending, 2=Processing, 3=On Hold, 4=Confirmed, 5=Completed, 6=Canceled, 7=Failed");
+            // Payment Gateway Info
             $table->string('transaction_id')->nullable();
-            $table->string('currency');
-            $table->integer('amount');
-            $table->integer('paid_amount');
+            $table->integer('total_price');
+            $table->integer('delivery_fee');
+            $table->integer('discount_amount');
+            $table->integer('paid_amount')->nullable();
             $table->timestamps();
         });
     }

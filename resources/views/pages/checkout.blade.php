@@ -31,6 +31,7 @@
                         $cartItems = Cart::where('user_id', $user_id)->get();
                         $totalItem= count($cartItems);
                         $totalPrice = 0;
+                        $discountAmount = 0;
                         foreach ($cartItems as $item) {
                             $totalPrice += $item->unit_price * $item->quantity;}
                     
@@ -39,6 +40,7 @@
                         $cartItems = Cart::where('ip_address', $ip_address)->whereNull('user_id')->get();
                         $totalItem= count($cartItems);
                         $totalPrice = 0;
+                        $discountAmount = 0;
                         foreach ($cartItems as $item) {
                             $totalPrice += $item->unit_price * $item->quantity;}
                         }
@@ -85,7 +87,8 @@
                 </div>
                 <div class="row">
                     <h4 class="mb-30">Billing Details</h4>
-                    <form method="post">
+                    <form action="{{route('order.create')}}" method="post">
+                        @csrf
                         <div class="row">
                             <div class="form-group col-lg-12">
                                 <input type="text" required="" name="name" placeholder="Name *">
@@ -107,44 +110,40 @@
                                 <input type="text" name="post_code" required="" placeholder="Postal code *">
                             </div>
                         </div>
-                    <div class="row shipping_calculator">     
-                        <div class="form-group">
-                            <select id="division_id" class="form-control" name="division_id" placeholder="Division..*" required>
-                                <option value="">Select Division</option>
-                                @foreach($divisions as $division)
-                                    <option value="{{ $division->id }}">{{ $division->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
+                        <div class="row shipping_calculator">     
+                            <div class="form-group">
+                                <select id="division_id" class="form-control" name="division_id" placeholder="Division..*" required>
+                                    <option value="">Select Division</option>
+                                    @foreach($divisions as $division)
+                                        <option value="{{ $division->id }}">{{ $division->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
 
-                        <div class="form-group">
-                            <select id="district_id" class="form-control " name="district_id" placeholder="District.. *"required>
-                                <option value="">Select district</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            
-                            <select id="thana_id" class="form-control" name="thana_id" placeholder="Thana/Upzilla..*" required>
-                                <option value="">Select thana/upzilla </option>
-                            </select>
-                        </div>
-                    </div>                        
+                            <div class="form-group">
+                                <select id="district_id" class="form-control " name="district_id" placeholder="District.. *"required>
+                                    <option value="">Select district</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+
+                                <select id="thana_id" class="form-control" name="thana_id" placeholder="Thana/Upzilla..*" required>
+                                    <option value="">Select thana/upzilla </option>
+                                </select>
+                            </div>
+                        </div>                        
+                    </div>
                 </div>
-            </div>
             <div class="col-lg-4">
                 <div class="payment ml-30">
                     <h4 class="mb-30">Payment</h4>
                     <div class="payment_option">
                         <div class="custome-radio">
-                            <input class="form-check-input" required="" type="radio" name="payment_option" id="exampleRadios3" checked="">
-                            <label class="form-check-label" for="exampleRadios3" data-bs-toggle="collapse" data-target="#bankTranfer" aria-controls="bankTranfer">Direct Bank Transfer</label>
-                        </div>
-                        <div class="custome-radio">
-                            <input class="form-check-input" required="" type="radio" name="payment_option" id="exampleRadios4" checked="">
+                            <input class="form-check-input" required="" type="radio" name="payment_method" id="exampleRadios4" checked="">
                             <label class="form-check-label" for="exampleRadios4" data-bs-toggle="collapse" data-target="#checkPayment" aria-controls="checkPayment">Cash on delivery</label>
                         </div>
                         <div class="custome-radio">
-                            <input class="form-check-input" required="" type="radio" name="payment_option" id="exampleRadios5" checked="">
+                            <input class="form-check-input" required="" type="radio" name="payment_method" id="exampleRadios5" checked="">
                             <label class="form-check-label" for="exampleRadios5" data-bs-toggle="collapse" data-target="#paypal" aria-controls="paypal">Online Getway</label>
                         </div>
                     </div>
@@ -162,35 +161,35 @@
                             <tbody>
                                 <tr>
                                     <td class="cart_total_label">
-                                        <h6 class="text-muted">Amount: </h6>
+                                        <h6 class="text-muted">Amount:      Tk.</h6>
                                     </td>
                                     <td class="cart_total_amount">
-                                        <input type="text" id="totalPrice" class="text-brand text-end" value="Tk.{{$totalPrice}}" readonly>
+                                        <input type="text" id="totalPrice" name="total_price" class="text-brand text-end" value="{{$totalPrice}}" readonly>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="cart_total_label">
-                                        <h6 class="text-muted">Discount Amount: </h6>
+                                        <h6 class="text-muted">Discount Amount:     Tk.</h6>
                                     </td>
                                     <td class="cart_total_amount">
-                                        <input type="text" id="discountAmount" class="text-brand text-end"  value="Tk.{{0}}" readonly>
+                                        <input type="text" id="discountAmount"  name="discount_amount" class="text-brand text-end"  name="discount_amount" value="{{$discountAmount}}" readonly>
                                     </td>
                                 </tr>
                                 <tr>
                                 <tr>
                                     <td class="cart_total_label">
-                                        <h6 class="text-muted">Delivery Fee: </h6>
+                                        <h6 class="text-muted">Delivery Fee:    Tk.</h6>
                                     </td>
                                     <td class="cart_total_amount">
-                                        <h4 class="text-brand text-end">Tk.</h4>
+                                        <input type="text" id="deliveryFee" class="text-brand text-end"  name="delivery_fee" value="{{70}}" readonly>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="cart_total_label">
-                                        <h6 class="text-muted">Total Amount:</h6>
+                                        <h6 class="text-muted">Total Amount:    Tk.</h6>
                                     </td>
                                     <td class="cart_total_amount">
-                                        <h4 class="text-brand text-end">Tk. </h4>
+                                        <h4 class="text-brand text-end">  </h4>
                                     </td>
                                 </tr>
                                 <tr>
@@ -201,7 +200,7 @@
                             </tbody>
                         </table>
                     </div>
-                    <a href="#" class="btn btn-fill-out btn-block mt-30">Place an Order<i class="fi-rs-sign-out ml-15"></i></a>
+                    <button type="submit" class="btn btn-fill-out btn-block mt-30">Place an Order<i class="fi-rs-sign-out ml-15"></i></buttton>
                 </div>
                 </div>
             </form>
@@ -273,8 +272,8 @@ document.getElementById('district_id').addEventListener('change', function() {
                 alert(data.error);
             } else {
                 
-                document.getElementById('totalPrice').value = 'Tk. ' + data.totalPrice;
-                document.getElementById('discountAmount').value = 'Tk. ' + data.discountAmount;
+                document.getElementById('totalPrice').value =  data.totalPrice;
+                document.getElementById('discountAmount').value = data.discountAmount;
             }
         })
         .catch(error => console.error('Error:', error));

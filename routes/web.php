@@ -86,6 +86,7 @@ Route::post('/cart/{product_id}', [CartController::class, 'store'])->name('store
 Route::post('/search', [ProductController:: class, 'search'])->name('product.search');
 Route::get('/user-account', [DivisionController::class, 'try'])->name('pages.userProfile');
 Route::post('/apply-coupon',[CouponController::class, 'applyCoupon']);
+Route::post('/create-order', [OrderController:: class, 'create'])->name('order.create');
 
 
 

@@ -53,10 +53,32 @@ class OrderController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $order = Order::create([
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'phone_number' => $request->input('phone_number'),
+            'address' => $request->input('address'),
+            'division_id' => $request->input('division_id'),
+            'district_id' => $request->input('district_id'),
+            'thana_id' => $request->input('thana_id'),
+            'post_code' => $request->input('post_code'),
+            'payment_method' => $request->input('payment_method'),
+            'total_price' => $request->input('total_price'),
+            'delivery_fee' => $request->input('delivery_fee'),
+            'discount_amount' => $request->input('discount_amount'),
+            
+        ]);
+
+        //dd($order);
+        
+        return redirect()->back()->with([
+            'message' => 'Order has been placed successfully.',
+            'alert-type' => 'success'
+        ]);
     }
+    
 
     /**
      * Store a newly created resource in storage.

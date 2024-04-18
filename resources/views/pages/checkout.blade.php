@@ -32,6 +32,7 @@
                         $totalItem= count($cartItems);
                         $totalPrice = 0;
                         $discountAmount = 0;
+                        $deliveryFee= 70;
                         foreach ($cartItems as $item) {
                             $totalPrice += $item->unit_price * $item->quantity;}
                     
@@ -41,6 +42,7 @@
                         $totalItem= count($cartItems);
                         $totalPrice = 0;
                         $discountAmount = 0;
+                        $deliveryFee= 70;
                         foreach ($cartItems as $item) {
                             $totalPrice += $item->unit_price * $item->quantity;}
                         }
@@ -139,11 +141,11 @@
                     <h4 class="mb-30">Payment</h4>
                     <div class="payment_option">
                         <div class="custome-radio">
-                            <input class="form-check-input" required="" type="radio" name="payment_method" id="exampleRadios4" checked="">
+                            <input class="form-check-input" required="" type="radio" name="payment_method" id="exampleRadios4"  value="1">
                             <label class="form-check-label" for="exampleRadios4" data-bs-toggle="collapse" data-target="#checkPayment" aria-controls="checkPayment">Cash on delivery</label>
                         </div>
                         <div class="custome-radio">
-                            <input class="form-check-input" required="" type="radio" name="payment_method" id="exampleRadios5" checked="">
+                            <input class="form-check-input" required="" type="radio" name="payment_method" id="exampleRadios5" value="2">
                             <label class="form-check-label" for="exampleRadios5" data-bs-toggle="collapse" data-target="#paypal" aria-controls="paypal">Online Getway</label>
                         </div>
                     </div>
@@ -181,7 +183,7 @@
                                         <h6 class="text-muted">Delivery Fee:    Tk.</h6>
                                     </td>
                                     <td class="cart_total_amount">
-                                        <input type="text" id="deliveryFee" class="text-brand text-end"  name="delivery_fee" value="{{70}}" readonly>
+                                        <input type="text" id="deliveryFee" class="text-brand text-end"  name="delivery_fee" value="{{$deliveryFee}}" readonly>
                                     </td>
                                 </tr>
                                 <tr>
@@ -189,7 +191,7 @@
                                         <h6 class="text-muted">Total Amount:    Tk.</h6>
                                     </td>
                                     <td class="cart_total_amount">
-                                        <h4 class="text-brand text-end">  </h4>
+                                        <input type="text" id="netTotal" class="text-brand text-end"  name="net_total" value="{{$totalPrice+$deliveryFee}}" readonly>
                                     </td>
                                 </tr>
                                 <tr>
@@ -272,7 +274,7 @@ document.getElementById('district_id').addEventListener('change', function() {
                 alert(data.error);
             } else {
                 
-                document.getElementById('totalPrice').value =  data.totalPrice;
+                document.getElementById('netTotal').value =  data.netTotal;
                 document.getElementById('discountAmount').value = data.discountAmount;
             }
         })

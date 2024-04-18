@@ -126,13 +126,13 @@ class CouponController extends Controller
                     $totalPrice += $item->unit_price * $item->quantity;}
                 
             }
-                
-            $updatedTotalPrice=$totalPrice-$discountAmount;
+            $deliveryFee=70;
+            $netTotal=$totalPrice-$discountAmount+$deliveryFee;
 
             return response()->json([
-                'totalPrice' => $updatedTotalPrice,
+                'netTotal' => $netTotal,
                 'discountAmount' => $discountAmount
-            ]);
+            ]);          
         } else {
             // Return error message if coupon is invalid
             return response()->json(['error' => 'Invalid coupon code'], 400);

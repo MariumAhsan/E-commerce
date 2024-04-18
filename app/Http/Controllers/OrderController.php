@@ -68,6 +68,7 @@ class OrderController extends Controller
             'total_price' => $request->input('total_price'),
             'delivery_fee' => $request->input('delivery_fee'),
             'discount_amount' => $request->input('discount_amount'),
+            'net_total'=> $request->input('net_total')
             
         ]);
 

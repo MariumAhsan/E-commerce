@@ -25,6 +25,7 @@ class Order extends Model
         'total_price', //
         'delivery_fee', //
         'discount_amount', //
+        'net_total', //
         'paid_amount',
     ];
 }

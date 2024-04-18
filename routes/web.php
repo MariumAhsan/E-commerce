@@ -64,6 +64,8 @@ Route::middleware('auth', 'admin')->group(function () {
     Route::post('/update/{id}',[CouponController::class, 'update'])->name('coupon.update');
     Route::get('/remove/{id}', [CouponController::class, 'remove'])->name('coupon.remove');
     
+
+    
 });
 
 
@@ -83,6 +85,7 @@ Route::resource('carts', CartController::class);
 Route::post('/cart/{product_id}', [CartController::class, 'store'])->name('store.cart');
 Route::post('/search', [ProductController:: class, 'search'])->name('product.search');
 Route::get('/user-account', [DivisionController::class, 'try'])->name('pages.userProfile');
+Route::post('/apply-coupon',[CouponController::class, 'applyCoupon']);
 
 
 

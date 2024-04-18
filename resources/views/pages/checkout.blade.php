@@ -21,6 +21,28 @@
                 </div>
             </div>
         </div>
+        @php
+            use App\Models\Cart;
+            use App\Models\Product;
+            use App\Models\Image;
+
+                    if(auth()->check()){
+                        $user_id= auth()->user()->id;
+                        $cartItems = Cart::where('user_id', $user_id)->get();
+                        $totalItem= count($cartItems);
+                        $totalPrice = 0;
+                        foreach ($cartItems as $item) {
+                            $totalPrice += $item->unit_price * $item->quantity;}
+                    
+                    }else{
+                        $ip_address = request()->ip();
+                        $cartItems = Cart::where('ip_address', $ip_address)->whereNull('user_id')->get();
+                        $totalItem= count($cartItems);
+                        $totalPrice = 0;
+                        foreach ($cartItems as $item) {
+                            $totalPrice += $item->unit_price * $item->quantity;}
+                        }
+        @endphp
         <div class="row">
             <div class="col-lg-8">
                 <div class="row mb-50">
@@ -55,9 +77,9 @@
                         </div>
                     </div>
                     <div class="col-lg-6">
-                        <form method="post" class="apply-coupon">
-                            <input type="text" name="code" placeholder="Coupon Code...">
-                            <button class="btn  btn-md" type="submit" name="login">Apply</button>
+                        <form id="applyCouponForm" class="apply-coupon">
+                            <input type="text" name="code" id="couponCode" placeholder="Coupon Code...">
+                            <button class="btn  btn-md" type="submit" id="applyCouponBtn">Apply</button>
                         </form>
                     </div>
                 </div>
@@ -105,11 +127,6 @@
                             <select id="thana_id" class="form-control" name="thana_id" placeholder="Thana/Upzilla..*" required>
                                 <option value="">Select thana/upzilla </option>
                             </select>
-                            @error('thana_id')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
                         </div>
                     </div>                        
                 </div>
@@ -138,6 +155,7 @@
                         <img src="{{asset('assets')}}/assets/imgs/theme/icons/payment-zapper.svg" alt="">
                     </div>
                 </div>
+                
                 <div class="border p-md-4 cart-totals ml-30">
                     <div class="table-responsive">
                         <table class="table no-border">
@@ -147,9 +165,18 @@
                                         <h6 class="text-muted">Amount: </h6>
                                     </td>
                                     <td class="cart_total_amount">
-                                        <h4 class="text-brand text-end">Tk.</h4>
+                                        <input type="text" id="totalPrice" class="text-brand text-end" value="Tk.{{$totalPrice}}" readonly>
                                     </td>
                                 </tr>
+                                <tr>
+                                    <td class="cart_total_label">
+                                        <h6 class="text-muted">Discount Amount: </h6>
+                                    </td>
+                                    <td class="cart_total_amount">
+                                        <input type="text" id="discountAmount" class="text-brand text-end"  value="Tk.{{0}}" readonly>
+                                    </td>
+                                </tr>
+                                <tr>
                                 <tr>
                                     <td class="cart_total_label">
                                         <h6 class="text-muted">Delivery Fee: </h6>
@@ -160,10 +187,10 @@
                                 </tr>
                                 <tr>
                                     <td class="cart_total_label">
-                                        <h6 class="text-muted">Total Amount: </h6>
+                                        <h6 class="text-muted">Total Amount:</h6>
                                     </td>
                                     <td class="cart_total_amount">
-                                        <h4 class="text-brand text-end">Tk.</h4>
+                                        <h4 class="text-brand text-end">Tk. </h4>
                                     </td>
                                 </tr>
                                 <tr>
@@ -226,6 +253,32 @@ document.getElementById('district_id').addEventListener('change', function() {
             });
     }
 });
+</script>
+<script>
+
+    document.getElementById('applyCouponForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        var couponCode = document.getElementById('couponCode').value;
+        fetch('/apply-coupon', {
+            method: 'POST',
+            body: JSON.stringify({ code: couponCode }),
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                alert(data.error);
+            } else {
+                
+                document.getElementById('totalPrice').value = 'Tk. ' + data.totalPrice;
+                document.getElementById('discountAmount').value = 'Tk. ' + data.discountAmount;
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    });
 </script>
 
 @endsection

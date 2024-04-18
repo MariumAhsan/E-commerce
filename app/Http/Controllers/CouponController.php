@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Coupon;
+use App\Models\Cart;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class CouponController extends Controller
@@ -98,5 +100,42 @@ class CouponController extends Controller
         $coupon->delete();
         //dd($coupon);
         return redirect()->back();
+    }
+
+    public function applyCoupon(Request $request) {
+        $couponCode = $request->input('code');
+        $coupon = Coupon::where('code', $couponCode)->first();
+    
+        if ($coupon) {
+            
+            $discountAmount = $coupon->discount_amount;
+            if(auth()->check()){
+                $user_id= auth()->user()->id;
+                $cartItems = Cart::where('user_id', $user_id)->get();
+                $totalItem= count($cartItems);
+                $totalPrice = 0;
+                foreach ($cartItems as $item) {
+                    $totalPrice += $item->unit_price * $item->quantity;}
+            
+            }else{
+                $ip_address = request()->ip();
+                $cartItems = Cart::where('ip_address', $ip_address)->whereNull('user_id')->get();
+                $totalItem= count($cartItems);
+                $totalPrice = 0;
+                foreach ($cartItems as $item) {
+                    $totalPrice += $item->unit_price * $item->quantity;}
+                
+            }
+                
+            $updatedTotalPrice=$totalPrice-$discountAmount;
+
+            return response()->json([
+                'totalPrice' => $updatedTotalPrice,
+                'discountAmount' => $discountAmount
+            ]);
+        } else {
+            // Return error message if coupon is invalid
+            return response()->json(['error' => 'Invalid coupon code'], 400);
+        }
     }
 }

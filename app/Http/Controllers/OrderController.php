@@ -8,6 +8,9 @@ use App\Models\Product;
 use App\Models\District;
 use App\Models\Division;
 use App\Models\Thana;
+use \Mpdf\Mpdf as PDF;
+use File;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -116,7 +119,9 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
-        //
+        $orders= Order::all();
+        //dd($orders);
+        return view('pages.view-order-list', compact('orders'));
     }
 
     /**
@@ -130,9 +135,13 @@ class OrderController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Order $order)
+    public function update(Request $request, $id)
     {
-        //
+        $order = Order::findOrFail($id);
+        $order->status = $request->input('status');
+        $order->save();
+    
+        return redirect()->back();
     }
 
     /**
@@ -142,4 +151,42 @@ class OrderController extends Controller
     {
         //
     }
+    public function order_details($order_id)
+    {
+        $order= Order::find($order_id);
+        //dd($order);
+
+        $date= Carbon::today()->toDateString();
+        //dd($date);
+
+        return view('pages.show-order-details', compact('order', 'date'));
+    }
+    public function invoice($order_id)
+    {
+ 
+        // Create the mPDF document
+        $pdf = new PDF( [
+            'mode' => 'utf-8',
+            'format' => 'A4',
+            'margin_header' => '3',
+            'margin_top' => '20',
+            'margin_bottom' => '20',
+            'margin_footer' => '2',
+        ]);     
+
+        
+        $order= Order::find($order_id);
+        //dd($order);
+
+        $date= Carbon::today()->toDateString();
+        //dd($date);
+
+        //$pdf->WriteHTML(view('pages.invoice'));
+        $pdf->WriteHTML('<h1>Hello world!</h1>');
+
+        return $pdf->Output('invoice.pdf', 'I');
+        
+    }
+
+    
 }

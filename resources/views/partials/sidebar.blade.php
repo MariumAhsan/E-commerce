@@ -210,6 +210,14 @@
             </li>
           </ul>
         </li>
+        <li class="nav-item">
+          <a href="{{route('pages.view-order-list')}}" class="nav-link">
+            <i class="nav-icon fas fa-th"></i>
+            <p>
+              View Order List
+            </p>
+          </a>
+        </li>
           <div class="sidebar-custom">
               <form method="POST" action="{{ route('logout') }}">
                 @csrf

@@ -60,6 +60,8 @@ Route::middleware('auth', 'admin')->group(function () {
     Route::get('/add-coupon', [CouponController::class, 'index'])->name('pages.add-coupon');
     Route::post('/store-coupon', [CouponController::class, 'store'])->name('coupon.store');
     Route::get('/show-coupon', [CouponController::class, 'show'])->name('pages.show-coupon');
+    Route::get('/view-order-list', [OrderController::class, 'show'])->name('pages.view-order-list');
+    Route:: get('/order-details/{order_id}', [OrderController::class, 'order_details'])->name('pages.show-order-details');
     Route::get('/edit/{id}',[CouponController::class, 'edit'])->name('coupon.edit');
     Route::post('/update/{id}',[CouponController::class, 'update'])->name('coupon.update');
     Route::get('/remove/{id}', [CouponController::class, 'remove'])->name('coupon.remove');
@@ -87,6 +89,7 @@ Route::post('/search', [ProductController:: class, 'search'])->name('product.sea
 Route::get('/user-account', [DivisionController::class, 'try'])->name('pages.userProfile');
 Route::post('/apply-coupon',[CouponController::class, 'applyCoupon']);
 Route::post('/create-order', [OrderController:: class, 'create'])->name('order.create');
+Route::put('/update-order-details/{id}',  [OrderController:: class, 'update'])->name('update-order-details');
 
 
 

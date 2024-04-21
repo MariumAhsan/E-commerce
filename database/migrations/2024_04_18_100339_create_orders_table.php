@@ -23,7 +23,7 @@ return new class extends Migration
             $table->integer('district_id');
             $table->integer('thana_id');
             $table->string('post_code');
-            $table->string('payment_method')->nullable()->comment("1 = COD, 2 = SSL");;
+            $table->string('payment_method')->nullable()->comment("1 = COD, 2 = SSL");
             $table->string('status')->nullable()->comment("1=Pending, 2=Processing, 3=On Hold, 4=Confirmed, 5=Completed, 6=Canceled, 7=Failed");
             // Payment Gateway Info
             $table->string('transaction_id')->nullable();

@@ -53,7 +53,7 @@
           <option value="6">Canceled</option>
           <option value="7">Failed</option>
         </select>
-        <button type="submit" class="btn btn-sm btn-secondary mt-1">Update </button>
+        <button type="submit" class="btn btn-sm btn-primary mt-1">Update </button>
         </div>
         </form>
         

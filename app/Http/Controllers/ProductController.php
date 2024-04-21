@@ -190,6 +190,9 @@ class ProductController extends Controller
                             ->where('status', 1)
                             ->get();
         $totalProduct = $productData->count();
-        return view('pages.shop-grid-left', compact('productData','totalProduct','searchKey'));
+        $categories = Category::all();
+        $subcategories = Subcategory::all();
+
+        return view('pages.shop-grid-left', compact('productData','totalProduct','searchKey','categories','subcategories'));
     }
 }

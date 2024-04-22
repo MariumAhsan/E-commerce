@@ -12,41 +12,41 @@
             </div>
         </div>
     </div>
+    @php
+        use App\Models\Cart;
+        use App\Models\Product;
+        use App\Models\Image;
+            if(auth()->check()){
+                $user_id= auth()->user()->id;
+                $cartItems = Cart::where('user_id', $user_id)->get();
+                $totalItem= count($cartItems);
+                $totalPrice = 0;
+                $discountAmount = 0;
+                $deliveryFee= 70;
+                foreach ($cartItems as $item) {
+                    $totalPrice += $item->unit_price * $item->quantity;}
+            
+            }else{
+                $ip_address = request()->ip();
+                $cartItems = Cart::where('ip_address', $ip_address)->whereNull('user_id')->get();
+                $totalItem= count($cartItems);
+                $totalPrice = 0;
+                $discountAmount = 0;
+                $deliveryFee= 70;
+                foreach ($cartItems as $item) {
+                    $totalPrice += $item->unit_price * $item->quantity;}
+                }
+    @endphp
     <div class="container mb-80 mt-50">
         <div class="row">
             <div class="col-lg-8 mb-40">
                 <h1 class="heading-2 mb-10">Checkout</h1>
                 <div class="d-flex justify-content-between">
-                    <h6 class="text-body">There are <span class="text-brand">3</span> products in your cart</h6>
+                    <h6 class="text-body">There are <span class="text-brand">{{$totalItem}}</span> products in your cart</h6>
                 </div>
             </div>
         </div>
-        @php
-            use App\Models\Cart;
-            use App\Models\Product;
-            use App\Models\Image;
-
-                    if(auth()->check()){
-                        $user_id= auth()->user()->id;
-                        $cartItems = Cart::where('user_id', $user_id)->get();
-                        $totalItem= count($cartItems);
-                        $totalPrice = 0;
-                        $discountAmount = 0;
-                        $deliveryFee= 70;
-                        foreach ($cartItems as $item) {
-                            $totalPrice += $item->unit_price * $item->quantity;}
-                    
-                    }else{
-                        $ip_address = request()->ip();
-                        $cartItems = Cart::where('ip_address', $ip_address)->whereNull('user_id')->get();
-                        $totalItem= count($cartItems);
-                        $totalPrice = 0;
-                        $discountAmount = 0;
-                        $deliveryFee= 70;
-                        foreach ($cartItems as $item) {
-                            $totalPrice += $item->unit_price * $item->quantity;}
-                        }
-        @endphp
+        
         <div class="row">
             <div class="col-lg-8">
                 <div class="row mb-50">

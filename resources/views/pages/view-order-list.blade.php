@@ -26,7 +26,46 @@
                             <td>{{ $order->name }}</td>
                             <td>{{ $order->phone_number}}</td>
                             <td>{{ $order->net_total }}</td>
-                            <td>{{ $order->status }}</td>
+                            <td>
+                                @php
+                                    $status = '';
+                                    switch ($order->status) {
+                                        case 1:
+                                            $status = 'Pending';
+                                            $badgeClass = 'badge-warning';
+                                            break;
+                                        case 2:
+                                            $status = 'Processing';
+                                            $badgeClass = 'badge-warning';
+                                            break;
+                                        case 3:
+                                            $status = 'On Hold';
+                                            $badgeClass = 'badge-secondary';
+                                            break;
+                                        case 4:
+                                            $status = 'Confirmed';
+                                            $badgeClass = 'badge-success';
+                                            break;
+                                        case 5:
+                                            $status = 'Completed';
+                                            $badgeClass = 'badge-info';
+                                            break;
+                                        case 6:
+                                            $status = 'Canceled';
+                                            $badgeClass = 'badge-danger';
+                                            break;
+                                        case 7:
+                                            $status = 'Failed';
+                                            $badgeClass = 'badge-dark';
+                                            break;
+                                        default:
+                                            $status = 'Unknown';
+                                            $badgeClass = 'badge-secondary';
+                                            break;
+                                    }
+                                @endphp
+                                <span class="badge {{ $badgeClass }}">{{ $status }}</span>
+                            </td>
                             <td><a href="{{ route('pages.show-order-details', $order->id)}}" class="btn btn-sm btn-primary">Show details</a></td>
                         </tr>
                         @endforeach

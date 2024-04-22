@@ -2,13 +2,17 @@
 
 namespace App\Http\Controllers;
 
+
+
 use App\Models\Order;
 use App\Models\Cart;
 use App\Models\Product;
 use App\Models\District;
 use App\Models\Division;
 use App\Models\Thana;
-use \Mpdf\Mpdf as PDF;
+use Mpdf\Mpdf;
+// require_once __DIR__ . '/vendor/autoload.php';
+
 use File;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -75,9 +79,35 @@ class OrderController extends Controller
             
         ]);
 
+        if($order->payment_method==1){
+            
+            $paddedOrderId = str_pad($order->id, 6, '0', STR_PAD_LEFT);
+            //dd($paddedOrderId);
+            // Assign the padded order ID as inv_id and save the order
+            $order->inv_id = $paddedOrderId;
+            //dd($order->inv_id );
+            $order->save();
+        }
+
         //dd($order);
+        if(auth()->check()){
+            $user_id= auth()->user()->id;
+            $cartItems = Cart::where('user_id', $user_id)->whereNull('order_id')->get();
+            foreach ($cartItems as $cartItem) {
+                $cartItem->order_id = $order->id;
+                $cartItem->save();
+            }
         
-        return redirect()->back()->with([
+        }else{
+            $ip_address = request()->ip();
+            $cartItems = Cart::where('ip_address', $ip_address)->whereNull('user_id')->whereNull('order_id')->get();
+            foreach ($cartItems as $cartItem) {
+                $cartItem->order_id = $order->id;
+                $cartItem->save();
+            }
+        }
+        
+        return redirect()->route('pages.customer-invoice', $order->id)->with([
             'message' => 'Order has been placed successfully.',
             'alert-type' => 'success'
         ]);
@@ -89,29 +119,7 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        $user_id = Auth::id();
-        $cartItems = Auth::check() ?
-        Cart::where('user_id', $user_id)->get() :
-        Cart::where('ip_address', $ip_address)->get();
-
-        $totalItems = Auth::check() ?
-                Cart::where('user_id', $user_id)->count('user_id') :
-                Cart::where('ip_address', $ip_address)->count('ip_address');
-
-        dd($totalItems);
-            $order = Order::create([
-            'user_id'=> $user_id,
-            'name' => $request->input('name'),
-            'phone_number' => $request->input('phone_number'),
-            'email' => $request->input('email'),
-            'address' => $request->input('address'),
-            'post_code' => $request->input('post_code'),
-            'payment_option' => $request->input('payment_option'),
-            'amount' => $request->input('amount'),
-        ]);
-       
     
-        return redirect()->back();
     }
 
     /**
@@ -121,6 +129,7 @@ class OrderController extends Controller
     {
         $orders= Order::all();
         //dd($orders);
+        
         return view('pages.view-order-list', compact('orders'));
     }
 
@@ -155,17 +164,31 @@ class OrderController extends Controller
     {
         $order= Order::find($order_id);
         //dd($order);
+        $cartItems= Cart::where('order_id', $order_id)->get();
+        //dd($cartItems);
 
         $date= Carbon::today()->toDateString();
         //dd($date);
 
-        return view('pages.show-order-details', compact('order', 'date'));
+        return view('pages.show-order-details', compact('order', 'date', 'cartItems'));
+    }
+    public function show_invoice($order_id)
+    {
+        $order= Order::find($order_id);
+        //dd($order);
+        $cartItems= Cart::where('order_id', $order_id)->get();
+        //dd($cartItems);
+
+        $date= Carbon::today()->toDateString();
+        //dd($date);
+
+        return view('pages.customer-invoice', compact('order', 'date', 'cartItems'));
     }
     public function invoice($order_id)
     {
- 
+        
         // Create the mPDF document
-        $pdf = new PDF( [
+        $pdf = new Mpdf( [
             'mode' => 'utf-8',
             'format' => 'A4',
             'margin_header' => '3',
@@ -181,8 +204,10 @@ class OrderController extends Controller
         $date= Carbon::today()->toDateString();
         //dd($date);
 
-        //$pdf->WriteHTML(view('pages.invoice'));
-        $pdf->WriteHTML('<h1>Hello world!</h1>');
+        $cartItems= Cart::where('order_id', $order_id)->get();
+
+        $pdf->WriteHTML(view('pages.download-invoice', compact('date','order','cartItems')));
+        //$pdf->WriteHTML('<h1>Hello world!</h1>');
 
         return $pdf->Output('invoice.pdf', 'I');
         

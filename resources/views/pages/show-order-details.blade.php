@@ -40,7 +40,7 @@
         <form action="{{ route('update-order-details', $order->id) }}" method="POST">
         @csrf
         @method('PUT')
-        <b>Invoice #007612</b><br>
+        <b>Invoice #{{$order->inv_id}}</b><br>
         <b>Order ID:</b> {{$order->id}}<br>
         <div class="form-group">
         <b>Status </b><br>
@@ -70,42 +70,28 @@
         <table class="table table-striped">
           <thead>
           <tr>
-            <th>Qty</th>
+            <th>Sl.</th>
             <th>Product</th>
-            <th>Serial #</th>
+            <th>Qty</th>
             <th>Description</th>
+            <th>Unit Price</th>
             <th>Subtotal</th>
           </tr>
           </thead>
           <tbody>
-          <tr>
-            <td>1</td>
-            <td>Call of Duty</td>
-            <td>455-981-221</td>
-            <td>El snort testosterone trophy driving gloves handsome</td>
-            <td>$64.50</td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>Need for Speed IV</td>
-            <td>247-925-726</td>
-            <td>Wes Anderson umami biodiesel</td>
-            <td>$50.00</td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>Monsters DVD</td>
-            <td>735-845-642</td>
-            <td>Terry Richardson helvetica tousled street art master</td>
-            <td>$10.70</td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>Grown Ups Blue Ray</td>
-            <td>422-568-642</td>
-            <td>Tousled lomo letterpress</td>
-            <td>$25.99</td>
-          </tr>
+            @foreach ($cartItems as $key => $cartItem)
+              @php
+                  $product = \App\Models\Product::firstWhere('id', $cartItem->product_id);
+              @endphp
+              <tr>
+                <td>{{$key+1}}</td>
+                <td>{{$product->name}}</td>
+                <td>{{ $cartItem->quantity }}</td>
+                <td>{{$product->short_description}}</td>
+                <td>Tk.{{ $cartItem->unit_price }}</td>
+                <td>Tk.{{ $cartItem->unit_price * $cartItem->quantity }}</td>
+              </tr>
+            @endforeach
           </tbody>
         </table>
       </div>
@@ -130,7 +116,6 @@
       </div>
       <!-- /.col -->
       <div class="col-6">
-        <p class="lead">Amount Due 2/22/2014</p>
 
         <div class="table-responsive">
           <table class="table">

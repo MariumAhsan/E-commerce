@@ -90,6 +90,8 @@ Route::get('/user-account', [DivisionController::class, 'try'])->name('pages.use
 Route::post('/apply-coupon',[CouponController::class, 'applyCoupon']);
 Route::post('/create-order', [OrderController:: class, 'create'])->name('order.create');
 Route::put('/update-order-details/{id}',  [OrderController:: class, 'update'])->name('update-order-details');
+Route::get('/order-invoice/{id}',  [OrderController:: class, 'show_invoice'])->name('pages.customer-invoice');
+Route::get('/download-invoice/{id}',  [OrderController:: class, 'invoice'])->name('download.invoice');
 
 
 

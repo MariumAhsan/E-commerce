@@ -100,8 +100,15 @@
                     <div class="header-info">
                         <ul>
                             <li><a href="">About Us</a></li>
-                            <li><a href="{{ route('register') }}">My Account</a></li>
-                            
+                            @if(auth()->check())
+                                <li>
+                                    <a href="{{ route('pages.userProfile') }}">My Account</a>
+                                </li>
+                            @else
+                                <li>
+                                    <a href="{{ route('register') }}">My Account</a>
+                                </li>
+                            @endif
                         </ul>
                     </div>
                 </div>
@@ -110,8 +117,8 @@
                         <div id="news-flash" class="d-inline-block">
                             <ul>
                                 <li>100% Secure delivery</li>
-                                <li>Super Value Deals - Save more with coupons</li>
-                                <li>Unlimited Discounts, save upto 35-50% off !!!</li>
+                                <li>Super Value Deals - Save tk.50 with SuperDeal50 </li>
+                                <li>Unlimited Discounts, Save tk.120 with SuperSave120 !!!</li>
                             </ul>
                         </div>
                     </div>
@@ -269,13 +276,18 @@
                                         </li>
                                         <li>
                                             <div class="sidebar-custom">
+                                                @if(auth()->check())
                                                 <form method="POST" action="{{ route('logout') }}">
                                                   @csrf
                                               
                                                   <x-dropdown-link :href="route('logout')" class="btn btn-info" onclick="event.preventDefault(); this.closest('form').submit();">
                                                       {{ __('Log Out') }}
                                                   </x-dropdown-link>
-                                              </form>
+                                                </form>
+                                                @else
+                                                    <a href="{{ route('login') }}" class="btn btn-info">{{ __('Log In') }}</a>
+                                                @endif
+
                                             </div>
                                         </li>
                                     </ul>

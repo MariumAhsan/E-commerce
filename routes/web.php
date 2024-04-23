@@ -11,6 +11,9 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\CouponController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\CartController;
+
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -96,6 +99,8 @@ Route::put('/update-user-details/{id}',  [DivisionController::class, 'add_detail
 
 Route::get('/order-invoice/{id}',  [OrderController:: class, 'show_invoice'])->name('pages.customer-invoice');
 Route::get('/download-invoice/{id}',  [OrderController:: class, 'invoice'])->name('download.invoice');
+
+Route::post('/update-password', [ProfileController::class, 'updatePassword'])->name('update.password');
 
 
 

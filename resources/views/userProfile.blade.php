@@ -4,7 +4,11 @@
 use App\Models\District;
 use App\Models\Division;
 use App\Models\Thana;
+use App\Models\Order;
 $divisions= Division::all();
+$user_id=Auth()->user()->id;
+$orders= Order::where('user_id',$user_id)->get();
+
 @endphp
 <main class="main">
 <div class="page-content pt-150 pb-150">
@@ -56,7 +60,7 @@ $divisions= Division::all();
                                             <table class="table">
                                                 <thead>
                                                     <tr>
-                                                        <th>Order</th>
+                                                        <th>Order ID.</th>
                                                         <th>Date</th>
                                                         <th>Status</th>
                                                         <th>Total</th>
@@ -64,27 +68,46 @@ $divisions= Division::all();
                                                     </tr>
                                                 </thead>
                                                 <tbody>
+                                                    @foreach($orders as $order)
                                                     <tr>
-                                                        <td>#1357</td>
-                                                        <td>March 45, 2020</td>
-                                                        <td>Processing</td>
-                                                        <td>$125.00 for 2 item</td>
-                                                        <td><a href="#" class="btn-small d-block">View</a></td>
+                                                        <td>{{$order->id}}</td>
+                                                        <td>{{$order->created_at}}</td>
+                                                        <td>@php
+                                                                $status = '';
+                                                            switch ($order->status) {
+                                                                case 1:
+                                                                    $status = 'Pending';
+                                                                    break;
+                                                                case 2:
+                                                                    $status = 'Processing';
+                                                                    break;
+                                                                case 3:
+                                                                    $status = 'On Hold';
+                                                                    break;
+                                                                case 4:
+                                                                    $status = 'Confirmed';
+                                                                    break;
+                                                                case 5:
+                                                                    $status = 'Completed';
+                                                                    break;
+                                                                case 6:
+                                                                    $status = 'Canceled';
+                                                                    break;
+                                                                case 7:
+                                                                    $status = 'Failed';
+                                                                    break;
+                                                                default:
+                                                                    $status = 'Unknown';
+                                                                    break;
+                                                                }
+                                                            @endphp
+                                                                <span>{{ $status }}</span>
+                                                        </td>
+                                                        <td>{{$order->net_total}}</td>
+                                                        <td><a href="{{route('pages.customer-invoice', $order->id)}}" class="btn-small d-block">View</a></td>
                                                     </tr>
-                                                    <tr>
-                                                        <td>#2468</td>
-                                                        <td>June 29, 2020</td>
-                                                        <td>Completed</td>
-                                                        <td>$364.00 for 5 item</td>
-                                                        <td><a href="#" class="btn-small d-block">View</a></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>#2366</td>
-                                                        <td>August 02, 2020</td>
-                                                        <td>Completed</td>
-                                                        <td>$280.00 for 3 item</td>
-                                                        <td><a href="#" class="btn-small d-block">View</a></td>
-                                                    </tr>
+                                                    @endforeach
+                                                
                                                 </tbody>
                                             </table>
                                         </div>
@@ -185,30 +208,29 @@ $divisions= Division::all();
                                         
                                             <div class="row">
                                                
-                                                <div class="form-group col-md-12">
-                                                   
-                                                </div>
+                                                <form action="{{ route('update.password') }}" method="POST">
+                                                    @csrf
                                                 <div class="form-group col-md-12">
                                                     <label>Email Address <span class="required">*</span></label>
-                                                    <input required="" class="form-control" name="email" type="email" />
+                                                    <input required="" class="form-control" name="email" type="email" value="{{Auth::user()->email }}"/>
                                                 </div>
                                                 <div class="form-group col-md-12">
                                                     <label>Current Password <span class="required">*</span></label>
-                                                    <input required="" class="form-control" name="password" type="password" />
+                                                    <input required="" class="form-control" name="current_password" type="password" />
                                                 </div>
                                                 <div class="form-group col-md-12">
                                                     <label>New Password <span class="required">*</span></label>
-                                                    <input required="" class="form-control" name="npassword" type="password" />
+                                                    <input required="" class="form-control" name="new_password" type="password" />
                                                 </div>
                                                 <div class="form-group col-md-12">
                                                     <label>Confirm Password <span class="required">*</span></label>
-                                                    <input required="" class="form-control" name="cpassword" type="password" />
+                                                    <input required="" class="form-control" name="confirm_password" type="password" />
                                                 </div>
                                                 <div class="col-md-12">
                                                     <button type="submit" class="btn btn-fill-out submit font-weight-bold" name="submit" value="Submit">Save Change</button>
                                                 </div>
-                                            </div>
-                                        </form>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

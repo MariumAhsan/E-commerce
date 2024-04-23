@@ -109,7 +109,7 @@
                                 <input type="text" name="address" required="" placeholder="Address *" value="{{ Auth::user()->address }}">
                             </div>
                             <div class="form-group col-lg-6">
-                                <input type="text" name="post_code" required="" placeholder="Postal code *" value="{{ Auth::user()->address }}">
+                                <input type="text" name="post_code" required="" placeholder="Postal code *" value="{{ Auth::user()->post_code }}">
                             </div>
                         </div>
                         <div class="row shipping_calculator">     

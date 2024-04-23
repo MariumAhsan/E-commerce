@@ -6,6 +6,7 @@ use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 
@@ -57,4 +58,32 @@ class ProfileController extends Controller
 
         return Redirect::to('/');
     }
+    public function updatePassword(Request $request)
+    {
+        
+        $request->validate([
+            'current_password' => 'required',
+            'new_password' => 'required|min:8',
+            'confirm_password' => 'required|same:new_password',
+        ]);
+
+        // Hash check
+        if (!Hash::check($request->current_password, Auth::user()->password)) {
+            return redirect()->back()->with([
+                'message' => 'Curent Password is incorrect!',
+                'alert-type' => 'error'
+            ]);
+        }
+
+        
+        Auth::user()->update([
+            'password' => Hash::make($request->new_password),
+        ]);
+
+        return redirect()->back()->with([
+            'message' => 'Password updated successfully.',
+            'alert-type' => 'success'
+        ]);
+    }
 }
+

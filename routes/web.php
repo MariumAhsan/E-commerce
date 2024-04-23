@@ -86,10 +86,14 @@ Route::get('/single-product/{slug}', [ProductController::class, 'view_single_pro
 Route::resource('carts', CartController::class);
 Route::post('/cart/{product_id}', [CartController::class, 'store'])->name('store.cart');
 Route::post('/search', [ProductController:: class, 'search'])->name('product.search');
-Route::get('/user-account', [DivisionController::class, 'try'])->name('pages.userProfile');
+Route::get('/user-account', [DivisionController::class, 'view'])->name('pages.userProfile');
 Route::post('/apply-coupon',[CouponController::class, 'applyCoupon']);
 Route::post('/create-order', [OrderController:: class, 'create'])->name('order.create');
 Route::put('/update-order-details/{id}',  [OrderController:: class, 'update'])->name('update-order-details');
+
+
+Route::put('/update-user-details/{id}',  [DivisionController::class, 'add_details'])->name('update.user-details');
+
 Route::get('/order-invoice/{id}',  [OrderController:: class, 'show_invoice'])->name('pages.customer-invoice');
 Route::get('/download-invoice/{id}',  [OrderController:: class, 'invoice'])->name('download.invoice');
 

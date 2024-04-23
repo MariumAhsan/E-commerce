@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Division;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -36,10 +37,28 @@ class DivisionController extends Controller
         
         return redirect()->back();
     }
-
-    public function try(){
-
+    public function view(){
+    
         return view('/userProfile');
+    }
+    public function add_details(Request $request, $user_id){
+        
+        $user = User::findOrFail(auth()->user()->id);
+        $user->address = $request->input('address');
+        $user->division_id = $request->input('division_id');
+        $user->district_id = $request->input('district_id');
+        $user->thana_id = $request->input('thana_id');
+        $user->phone_number = $request->input('phone_number');
+
+        $user->post_code = $request->input('post_code');
+    
+        $user->save();
+    
+        return redirect()->back()->with([
+            'message' => 'Profile updated successfully.',
+            'alert-type' => 'success'
+        ]);;
+
     }
 
 

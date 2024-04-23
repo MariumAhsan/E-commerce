@@ -93,23 +93,23 @@
                         @csrf
                         <div class="row">
                             <div class="form-group col-lg-12">
-                                <input type="text" required="" name="name" placeholder="Name *">
+                                <input type="text" required="" name="name" placeholder="Name *" value="{{ Auth::user()->name }}">
                             </div>
                         </div>
                         <div class="row">
                             <div class="form-group col-lg-6">
-                                <input required="" type="text" name="phone_number" placeholder="Phone *">
+                                <input required="" type="text" name="phone_number" placeholder="Phone *" value="{{ Auth::user()->phone_number }}">
                             </div>
                             <div class="form-group col-lg-6">
-                                <input required="" type="text" name="email" placeholder="Email address *">
+                                <input required="" type="text" name="email" placeholder="Email address *" value="{{ Auth::user()->email }}">
                             </div> 
                         </div>  
                         <div class="row">
                             <div class="form-group col-lg-6">
-                                <input type="text" name="address" required="" placeholder="Address *">
+                                <input type="text" name="address" required="" placeholder="Address *" value="{{ Auth::user()->address }}">
                             </div>
                             <div class="form-group col-lg-6">
-                                <input type="text" name="post_code" required="" placeholder="Postal code *">
+                                <input type="text" name="post_code" required="" placeholder="Postal code *" value="{{ Auth::user()->address }}">
                             </div>
                         </div>
                         <div class="row shipping_calculator">     
@@ -128,7 +128,6 @@
                                 </select>
                             </div>
                             <div class="form-group">
-
                                 <select id="thana_id" class="form-control" name="thana_id" placeholder="Thana/Upzilla..*" required>
                                     <option value="">Select thana/upzilla </option>
                                 </select>

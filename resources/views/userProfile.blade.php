@@ -1,6 +1,11 @@
 @extends('layouts.shop-main')
 @section('content')
-
+@php
+use App\Models\District;
+use App\Models\Division;
+use App\Models\Thana;
+$divisions= Division::all();
+@endphp
 <main class="main">
 <div class="page-content pt-150 pb-150">
     <div class="container">
@@ -113,34 +118,61 @@
                             </div>
                             <div class="tab-pane fade" id="address" role="tabpanel" aria-labelledby="address-tab">
                                 <div class="row">
-                                    <form method="POST" action="{{ route('register') }}" >
+                                    <form method="POST" action="{{ route('update.user-details', Auth::user()->id) }}" >
                                         @csrf
-                                    <div class="col-lg-6">
-                                        <div class="card mb-3 mb-lg-0">
-                                            <div class="card-header">
-                                                <h3 class="mb-0">Shipping Address</h3>
-                                            </div>
-                                            <div class="card-body">
-                                                <address>
-                                                    {{Auth::user()->address}}
-                                                </address>
-                                                <a href="#" class="btn-small">Edit</a>
+                                        @method('PUT')
+                                        <div class="col-lg-6">
+                                            <div class="card mb-3 mb-lg-0">
+                                                <div class="card-header">
+                                                    <h3 class="mb-0">Shipping Address</h3>
+                                                </div>
+                                                <div class="card-body">
+                                                    <input type="text" name="address" value="{{ Auth::user()->address }}" placeholder="Enter your address">
+                                                    
+                                                </div>
+                                                <div class="card-body">
+                                                    <select id="division_id" class="form-control" name="division_id" placeholder="Division.." required value="{{ Auth::user()->division_id }}">
+                                                        <option value="">Select Division</option>
+                                                        @foreach($divisions as $division)
+                                                            <option value="{{ $division->id }}" @if(Auth::user()->division_id == $division->id) selected @endif>{{ $division->name }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    
+                                                </div>
+                                                <div class="card-body">
+                                                    <select id="district_id" class="form-control " name="district_id" placeholder="District.. *"required value="{{ Auth::user()->district_id }}">
+                                                        <option value="">Select district</option>
+                                                    </select>
+                                                </div>
+                                                <div class="card-body">
+                                                    <select id="thana_id" class="form-control" name="thana_id" placeholder="Thana/Upzilla..*" required value="{{ Auth::user()->thana_id }}">
+                                                        <option value="">Select thana/upzilla </option>
+                                                    </select>
+                                                </div>
+                                                <div class="card-body">
+                                                    <input type="text" name="post_code" value="{{ Auth::user()->post_code }}" placeholder="Post Code...">
+                                                    
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <div class="card mb-3 mb-lg-0">
-                                            <div class="card-header">
-                                                <h3 class="mb-0">Phone Number: </h3>
-                                            </div>
-                                            <div class="card-body">
-                                                <address>
-                                                    {{Auth::user()->phone_number}}
-                                                </address>
-                                                <a href="#" class="btn-small">Edit</a>
+                                        <div class="col-lg-6">
+                                            <div class="card mb-3 mb-lg-0">
+                                                <div class="card-header">
+                                                    <h3 class="mb-0">Phone Number: </h3>
+                                                </div>
+                                                <div class="card-body">
+                                                    <input type="text" name="phone_number" value="{{ Auth::user()->phone_number }}" placeholder="Enter your phone number">
+                            
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+                                        <div class="col-lg-6">
+                                            <div class="card mb-3 mb-lg-0">
+                                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                                        </div>
+                                        </div>
+                                    </form>
+                                    
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="account-detail" role="tabpanel" aria-labelledby="account-detail-tab">
@@ -188,4 +220,50 @@
     </div>
 </div>
 </main>
+<script>
+
+    document.getElementById('division_id').addEventListener('change', function() {
+        var divisionId = this.value;
+        var districtDropdown = document.getElementById('district_id');
+        districtDropdown.innerHTML = ''; // Clear existing options
+    
+        if (divisionId) {
+            fetch('/get-districts/' + divisionId)
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data); 
+                    data.forEach(district => {    //receiving array of districts
+                        var option = document.createElement('option');
+                        option.value = district.id;
+                        option.text = district.name;
+                        districtDropdown.add(option);
+                    });
+    
+                });
+        }
+    });
+</script>
+<script>
+    document.getElementById('district_id').addEventListener('change', function() {
+        var districtId = this.value;
+        var thanaDropdown = document.getElementById('thana_id');
+        thanaDropdown.innerHTML = ''; // Clear existing options
+    
+        if (districtId) {
+            fetch('/get-thanas/' + districtId)
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data); 
+                    data.forEach(thana => {    //receiving array of districts
+                        var option = document.createElement('option');
+                        option.value = thana.id;
+                        option.text = thana.name;
+                        thanaDropdown.add(option);
+                    });
+    
+                });
+        }
+    });
+</script>
+
 @endsection

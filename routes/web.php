@@ -11,6 +11,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\CouponController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\SslCommerzPaymentController;
 
 
 
@@ -102,6 +103,17 @@ Route::get('/download-invoice/{id}',  [OrderController:: class, 'invoice'])->nam
 
 Route::post('/update-password', [ProfileController::class, 'updatePassword'])->name('update.password');
 
+// SSLCOMMERZ Start
+Route::get('/example1', [SslCommerzPaymentController::class, 'exampleEasyCheckout']);
+Route::get('/example2', [SslCommerzPaymentController::class, 'exampleHostedCheckout']);
 
+Route::post('/pay', [SslCommerzPaymentController::class, 'index'])->name('pay');
+
+
+Route::post('/success', [SslCommerzPaymentController::class, 'success']);
+Route::post('/fail', [SslCommerzPaymentController::class, 'fail']);
+Route::post('/cancel', [SslCommerzPaymentController::class, 'cancel']);
+Route::post('/ipn', [SslCommerzPaymentController::class, 'ipn']);
+//SSLCOMMERZ END
 
 require __DIR__.'/auth.php';

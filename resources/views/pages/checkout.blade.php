@@ -89,7 +89,7 @@
                 </div>
                 <div class="row">
                     <h4 class="mb-30">Billing Details</h4>
-                    <form action="{{route('order.create')}}" method="post">
+            <form action="{{route('pay')}}" method="post">
                         @csrf
                         <div class="row">
                             <div class="form-group col-lg-12">

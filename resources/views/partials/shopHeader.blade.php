@@ -182,12 +182,12 @@
                                 use App\Models\Image;
                                     if(auth()->check()){
                                         $user_id= auth()->user()->id;
-                                        $cartItems = Cart::where('user_id', $user_id)->get();
+                                        $cartItems = Cart::where('user_id', $user_id)->whereNull('order_id')->get();
                                         $totalItem= count($cartItems);
                                         
                                     }else{
                                         $ip_address = request()->ip();
-                                        $cartItems = Cart::where('ip_address', $ip_address)->whereNull('user_id')->get();
+                                        $cartItems = Cart::where('ip_address', $ip_address)->whereNull('user_id')->whereNull('order_id')->get();
                                         $totalItem= count($cartItems);
                                         }
                             @endphp
@@ -323,7 +323,7 @@
 
                                     @foreach($categories as $category)
                                     <li>
-                                        <a href="shop-grid-right.html"> <img src="{{asset('assets')}}/assets/imgs/theme/icons/category-1.svg" alt="" />{{$category->name}}</a>
+                                        <a href="" class="search-link"> <img src="{{asset('assets')}}/assets/imgs/theme/icons/category-1.svg" alt="" />{{$category->name}}</a>
                                     </li>
                                     @endforeach
                                 </ul>
@@ -350,10 +350,10 @@
                                     <ul class="mega-menu">
                                         @foreach($categories as $category)
                                         <li class="sub-mega-menu sub-mega-menu-width-22">
-                                            <a class="menu-title" href="#">{{$category->name}}</a>
+                                            <a class="menu-title search-link" href="#">{{$category->name}}</a>
                                             <ul>
                                                 @foreach($category->subcategories as $subcategory)
-                                                <li><a href="shop-product-right.html">{{$subcategory->name}}</a></li>
+                                                <li><a href="" class="search-link">{{$subcategory->name}}</a></li>
                                                 @endforeach
                                             </ul>
                                         </li>

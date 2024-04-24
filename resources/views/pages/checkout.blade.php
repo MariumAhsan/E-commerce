@@ -18,7 +18,7 @@
         use App\Models\Image;
             if(auth()->check()){
                 $user_id= auth()->user()->id;
-                $cartItems = Cart::where('user_id', $user_id)->get();
+                $cartItems = Cart::where('user_id', $user_id)->whereNull('order_id')->get();
                 $totalItem= count($cartItems);
                 $totalPrice = 0;
                 $discountAmount = 0;
@@ -28,7 +28,7 @@
             
             }else{
                 $ip_address = request()->ip();
-                $cartItems = Cart::where('ip_address', $ip_address)->whereNull('user_id')->get();
+                $cartItems = Cart::where('ip_address', $ip_address)->whereNull('user_id')->whereNull('order_id')->get();
                 $totalItem= count($cartItems);
                 $totalPrice = 0;
                 $discountAmount = 0;

@@ -44,7 +44,7 @@ class CartController extends Controller
                 $user_id = Auth::id();
                 $ip_address = $request->ip();
 
-                $cartItem = Cart::where('product_id', $product_id)->where('user_id', $user_id)->first();
+                $cartItem = Cart::where('product_id', $product_id)->where('user_id', $user_id)->whereNull('order_id')->first();
 
                 if (!$cartItem) {
                 
@@ -74,7 +74,7 @@ class CartController extends Controller
             $user_id = null;
             $ip_address = $request->ip();
             $cartItem = Cart::where('product_id', $product_id)->where('ip_address', $ip_address)
-                                ->whereNull('user_id')->first();
+                                ->whereNull('user_id')->whereNull('order_id')->first();
             
             //dd($cartItem);
                 if (!$cartItem) {
@@ -109,7 +109,7 @@ class CartController extends Controller
             $user_id = Auth::id();
             $ip_address = $request->ip();
 
-            $cartItems = Cart::where('user_id', $user_id)->get();
+            $cartItems = Cart::where('user_id', $user_id)->whereNull('order_id')->get();
             $totalItems = count($cartItems);
 
             $totalPrice = 0;
@@ -122,7 +122,7 @@ class CartController extends Controller
             
             $ip_address = $request->ip();
 
-            $cartItems = Cart::where('ip_address', $ip_address)->whereNull('user_id')->get();
+            $cartItems = Cart::where('ip_address', $ip_address)->whereNull('user_id')->whereNull('order_id')->get();
             $totalItems = count($cartItems);
             $totalPrice = 0;
             foreach ($cartItems as $item) {
@@ -150,16 +150,16 @@ class CartController extends Controller
     
             // Find the cart item by user_id or ip_address 
             $updateItem = Auth::check() ?
-            Cart::where('user_id', $user_id)->where('id', $cart_id)->first() :
-            Cart::where('ip_address', $ip_address)->where('id', $cart_id)->first();
+            Cart::where('user_id', $user_id)->where('id', $cart_id)->whereNull('order_id')->first() :
+            Cart::where('ip_address', $ip_address)->where('id', $cart_id)->whereNull('order_id')->first();
             
     
             $updateItem ->update(['quantity' => $request->quantity]);
             
   
             $cartItems = Auth::check() ?
-                Cart::where('user_id', $user_id)->get() :
-                Cart::where('ip_address', $ip_address)->whereNull('user_id')->get();
+                Cart::where('user_id', $user_id)->whereNull('order_id')->get() :
+                Cart::where('ip_address', $ip_address)->whereNull('user_id')->whereNull('order_id')->get();
     
             $totalItems = count($cartItems);
     
@@ -183,16 +183,16 @@ class CartController extends Controller
 
         // Find the cart item by user_id or ip_address 
         $deleteItem = Auth::check() ?
-        Cart::where('user_id', $user_id)->where('id', $cart_id)->first() :
-        Cart::where('ip_address', $ip_address)->where('id', $cart_id)->first();
+        Cart::where('user_id', $user_id)->where('id', $cart_id)->whereNull('order_id')->first() :
+        Cart::where('ip_address', $ip_address)->where('id', $cart_id)->whereNull('order_id')->first();
         //dd($deleteItem);
 
         $deleteItem->delete();
 
         
         $cartItems = Auth::check() ?
-            Cart::where('user_id', $user_id)->get() :
-            Cart::where('ip_address', $ip_address)->whereNull('user_id')->get();
+            Cart::where('user_id', $user_id)->whereNull('order_id')->get() :
+            Cart::where('ip_address', $ip_address)->whereNull('user_id')->whereNull('order_id')->get();
 
         $totalItems = count($cartItems);
 

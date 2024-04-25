@@ -141,22 +141,6 @@ class SslCommerzPaymentController extends Controller
             //
             $order->save();
 
-            if(auth()->check()){
-                $user_id= auth()->user()->id;
-                $cartItems = Cart::where('user_id', $user_id)->whereNull('order_id')->get();
-                foreach ($cartItems as $cartItem) {
-                    $cartItem->order_id = $order->id;
-                    $cartItem->save();
-                }
-            
-            }else{
-                $ip_address = request()->ip();
-                $cartItems = Cart::where('ip_address', $ip_address)->whereNull('user_id')->whereNull('order_id')->get();
-                foreach ($cartItems as $cartItem) {
-                    $cartItem->order_id = $order->id;
-                    $cartItem->save();
-                }
-            }
 
         $sslc = new SslCommerzNotification();
         # initiate(Transaction Data , false: Redirect to SSLCOMMERZ gateway/ true: Show all the Payement gateway here )
@@ -200,12 +184,34 @@ class SslCommerzPaymentController extends Controller
                 in order table as Processing or Complete.
                 Here you can also sent sms or email for successfull transaction to customer
                 */
+                $order= Order::orderBy('id','desc')->first();
+                //dd($order);
+
                 $update_product = Order::where('transaction_id', $tran_id)
                                         ->update(['status' => '2','paid_amount' => $request->input('amount')]);
 
+                                        
+                
+                                        if(auth()->check()){
+                                            $user_id= auth()->user()->id;
+                                            $cartItems = Cart::where('user_id', $user_id)->whereNull('order_id')->get();
+                                            foreach ($cartItems as $cartItem) {
+                                                $cartItem->order_id = $order->id;
+                                                $cartItem->save();
+                                            }
+                                        
+                                        }else{
+                                            $ip_address = request()->ip();
+                                            $cartItems = Cart::where('ip_address', $ip_address)->whereNull('user_id')->whereNull('order_id')->get();
+                                            foreach ($cartItems as $cartItem) {
+                                                $cartItem->order_id = $order->id;
+                                                $cartItem->save();
+                                            }
+                                        }
+
                                       
                     return redirect()->route('pages.customer-invoice', $order_details->id)->with([
-                        'message' => 'Payment successfull!, Order placed succuessfully',
+                        'message' => 'Payment successful',
                         'alert-type' => 'success'
                     ]);
             }
@@ -214,13 +220,13 @@ class SslCommerzPaymentController extends Controller
              That means through IPN Order status already updated. Now you can just show the customer that transaction is completed. No need to udate database.
              */
             return redirect()->route('pages.customer-invoice', $order_details->id)->with([
-                'message' => 'Payment successfull!, Order placed succuessfully',
-                'alert-type' => 'success'
+                'message' => 'Payment already done!',
+                'alert-type' => 'info'
             ]);
         } else {
             #That means something wrong happened. You can redirect customer to your product page.
-            return redirect()-back()>with([
-                'message' => 'Payment Invalid!',
+            return redirect()->route('pages.shop-grid-left')->with([
+                'message' => 'Invalid Action!',
                 'alert-type' => 'danger'
             ]);
         }
@@ -234,24 +240,25 @@ class SslCommerzPaymentController extends Controller
 
         $order_details = DB::table('orders')
             ->where('transaction_id', $tran_id)
-            ->select('transaction_id', 'status', 'currency', 'net_total')->first();
+            ->select('id','transaction_id', 'status', 'currency', 'net_total')->first();
 
         if ($order_details->status == '1') {
             $update_product = DB::table('orders')
                 ->where('transaction_id', $tran_id)
-                ->update(['status' => '7','paid_amount' => $request->input('amount')]);
-                return redirect()-back()>with([
-                    'message' => 'Payment Invalid!',
+                ->update(['status' => '7']);
+           
+                return redirect()->route('pages.checkout')->with([
+                    'message' => 'Payment Unsucessful!',
                     'alert-type' => 'danger'
                 ]);
         } else if ($order_details->status == '2' || $order_details->status == '5') {
-            return redirect()-back()>with([
+            return redirect()->route('pages.customer-invoice', $order_details->id)->with([
                 'message' => 'Payment has been done already!',
                 'alert-type' => 'warning'
             ]);
         } else {
-            return redirect()-back()>with([
-                'message' => 'Payment Invalid!',
+            return redirect()->route('pages.shop-grid-left')->with([
+                'message' => 'Invalid Action!',
                 'alert-type' => 'danger'
             ]);
         }

@@ -201,7 +201,10 @@ class CartController extends Controller
             $totalPrice += $singleItem->unit_price * $singleItem->quantity;
         }
 
-            return view('pages.cart', compact('cartItems', 'totalItems', 'totalPrice'));
+            return view('pages.cart', compact('cartItems', 'totalItems', 'totalPrice'))->with([
+                'message' => 'Product removed.',
+                'alert-type' => 'info'
+            ]);
     }
 
     

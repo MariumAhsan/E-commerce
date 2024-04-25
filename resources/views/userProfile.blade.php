@@ -35,7 +35,12 @@ $orders= Order::where('user_id',$user_id)->get();
                                     <a class="nav-link" id="account-detail-tab" data-bs-toggle="tab" href="#account-detail" role="tab" aria-controls="account-detail" aria-selected="true"><i class="fi-rs-user mr-10"></i>Account details</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="page-login.html"><i class="fi-rs-sign-out mr-10"></i>Logout</a>
+                                    <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+                                    <x-dropdown-link :href="route('logout')" class="nav-link" onclick="event.preventDefault(); this.closest('form').submit();">
+                                        <i class="fi-rs-sign-out mr-10"></i>{{ __('Log Out') }}
+                                    </x-dropdown-link>
+                                  </form> 
                                 </li>
                             </ul>
                         </div>

@@ -32,7 +32,7 @@
                                     switch ($order->status) {
                                         case 1:
                                             $status = 'Pending';
-                                            $badgeClass = 'badge-warning';
+                                            $badgeClass = 'badge-secondary';
                                             break;
                                         case 2:
                                             $status = 'Processing';
@@ -56,7 +56,7 @@
                                             break;
                                         case 7:
                                             $status = 'Failed';
-                                            $badgeClass = 'badge-dark';
+                                            $badgeClass = 'badge-danger';
                                             break;
                                         default:
                                             $status = 'Unknown';
@@ -66,7 +66,7 @@
                                 @endphp
                                 <span class="badge {{ $badgeClass }}">{{ $status }}</span>
                             </td>
-                            <td><a href="{{ route('pages.show-order-details', $order->id)}}" class="btn btn-sm btn-primary">Show details</a></td>
+                            <td><a href="{{ route('pages.show-order-details', $order->id)}}" >Details</a></td>
                         </tr>
                         @endforeach
                     </tbody>

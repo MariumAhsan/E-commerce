@@ -250,7 +250,11 @@
                                 <a href="page-account.html">
                                     <img class="svgInject" alt="Nest" src="{{asset('assets')}}/assets/imgs/theme/icons/icon-user.svg" />
                                 </a>
-                                <a href=""><span class="lable ml-0">Account</span></a>
+                                @if(auth()->check())
+                                <a href="{{ route('pages.userProfile') }}"><span class="lable ml-0">Account</span></a>
+                                @else
+                                <a href="{{ route('register') }}"><span class="lable ml-0">Account</span></a>
+                                @endif
                                 <div class="cart-dropdown-wrap cart-dropdown-hm2 account-dropdown">
                                     <ul>
                                         @if(auth()->check())

@@ -24,3 +24,5 @@
  <!-- imageUploader ! -->
  
  <link rel="stylesheet" href="{{asset('assets')}}/preview.css">  
+ <!-- Toastr -->
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Library\SslCommerz\SslCommerzNotification;
 use App\Models\Order;
 use App\Models\Cart;
+
 class SslCommerzPaymentController extends Controller
 {
 
@@ -52,6 +53,8 @@ class SslCommerzPaymentController extends Controller
         $post_data['value_c'] = "ref003";
         $post_data['value_d'] = "ref004";
 
+        $user_id= auth()->check() ?  auth()->user()->id : 0;
+
         #Before  going to initiate the payment order status need to insert or update as Pending.
         if($request->input('payment_method')==1){
         $update_product = DB::table('orders')
@@ -59,7 +62,7 @@ class SslCommerzPaymentController extends Controller
             ->updateOrInsert([
                 'name' => $post_data['cus_name'],
                 'email' => $post_data['cus_email'],
-                'user_id' => auth()->user()->id,
+                'user_id' => $user_id,
                 'phone_number' => $post_data['cus_phone'],
                 'division_id' => $request->input('division_id'),
                 'district_id' => $request->input('district_id'),
@@ -114,7 +117,7 @@ class SslCommerzPaymentController extends Controller
             ->updateOrInsert([
                 'name' => $post_data['cus_name'],
                 'email' => $post_data['cus_email'],
-                'user_id' => auth()->user()->id,
+                'user_id' => $user_id,
                 'phone_number' => $post_data['cus_phone'],
                 'division_id' => $request->input('division_id'),
                 'district_id' => $request->input('district_id'),

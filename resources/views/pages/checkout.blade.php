@@ -46,7 +46,13 @@
                 </div>
             </div>
         </div>
-        
+        @if ($cartItems->isEmpty())
+        <p>Your cart is empty.</p>
+        <div class="divider-2 mb-30"></div>
+        <div class="cart-action d-flex justify-content-between">
+            <a href="{{route('pages.shop-grid-left')}}" class="btn "><i class="fi-rs-arrow-left mr-10"></i>Continue Shopping</a>
+        </div>  
+        @else
         <div class="row">
             <div class="col-lg-8">
                 <div class="row mb-50">
@@ -92,26 +98,27 @@
             <form action="{{route('pay')}}" method="post">
                         @csrf
                         <div class="row">
-                            <div class="form-group col-lg-12">
-                                <input type="text" required="" name="name" placeholder="Name *" value="{{ Auth::user()->name }}">
+                            <div class="form-group col-lg-6">
+                                <input required="" type="text" name="name" placeholder="Name *" value="{{ Auth::check() ? Auth::user()->name : '' }}">  
                             </div>
                         </div>
                         <div class="row">
                             <div class="form-group col-lg-6">
-                                <input required="" type="text" name="phone_number" placeholder="Phone *" value="{{ Auth::user()->phone_number }}">
+                                <input required="" type="text" name="phone_number" placeholder="Phone *" value="{{ Auth::check() ? Auth::user()->phone_number : '' }}">
                             </div>
                             <div class="form-group col-lg-6">
-                                <input required="" type="text" name="email" placeholder="Email address *" value="{{ Auth::user()->email }}">
+                                <input required="" type="text" name="email" placeholder="Email address *" value="{{ Auth::check() ? Auth::user()->email : '' }}">
                             </div> 
                         </div>  
                         <div class="row">
                             <div class="form-group col-lg-6">
-                                <input type="text" name="address" required="" placeholder="Address *" value="{{ Auth::user()->address }}">
+                                <input type="text" name="address" required="" placeholder="Address *" value="{{ Auth::check() ? Auth::user()->address : '' }}">
                             </div>
                             <div class="form-group col-lg-6">
-                                <input type="text" name="post_code" required="" placeholder="Postal code *" value="{{ Auth::user()->post_code }}">
+                                <input type="text" name="post_code" required="" placeholder="Postal code *" value="{{ Auth::check() ? Auth::user()->post_code : '' }}">
                             </div>
                         </div>
+                        
                         <div class="row shipping_calculator">     
                             <div class="form-group">
                                 <select id="division_id" class="form-control" name="division_id" placeholder="Division..*" required>
@@ -206,6 +213,7 @@
                 </div>
             </form>
         </div>
+        @endif
     </div>
 </main>
 
@@ -252,7 +260,7 @@ document.getElementById('district_id').addEventListener('change', function() {
             .then(response => response.json())
             .then(data => {
                 console.log(data); 
-                data.forEach(thana => {    //receiving array of thanas
+                data.forEach(thana => {    //receiving array of districts
                     var option = document.createElement('option');
                     option.value = thana.id;
                     option.text = thana.name;

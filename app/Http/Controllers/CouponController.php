@@ -50,7 +50,10 @@ class CouponController extends Controller
         // Save the coupon
         $coupon->save();
 
-        return redirect()->back();
+        return redirect()->route('pages.show-coupon')->with([
+            'message' => 'New coupon created !',
+            'alert-type' => 'success'
+        ]);   
     }
 
     /**
@@ -88,7 +91,10 @@ class CouponController extends Controller
         $coupon->save();
 
 
-        return redirect()->back();
+        return redirect()->route('pages.show-coupon')->with([
+            'message' => 'Coupon updated successfully.',
+            'alert-type' => 'success'
+        ]);   
     }
 
     /**
@@ -104,14 +110,14 @@ class CouponController extends Controller
 
     public function applyCoupon(Request $request) {
         $couponCode = $request->input('code');
-        $coupon = Coupon::where('code', $couponCode)->first();
+        $coupon = Coupon::where('code', $couponCode)->where('status', 1)->first();
     
         if ($coupon) {
             
             $discountAmount = $coupon->discount_amount;
             if(auth()->check()){
                 $user_id= auth()->user()->id;
-                $cartItems = Cart::where('user_id', $user_id)->get();
+                $cartItems = Cart::where('user_id', $user_id)->whereNull('order_id')->get();
                 $totalItem= count($cartItems);
                 $totalPrice = 0;
                 foreach ($cartItems as $item) {
@@ -119,7 +125,7 @@ class CouponController extends Controller
             
             }else{
                 $ip_address = request()->ip();
-                $cartItems = Cart::where('ip_address', $ip_address)->whereNull('user_id')->get();
+                $cartItems = Cart::where('ip_address', $ip_address)->whereNull('user_id')->whereNull('order_id')->get();
                 $totalItem= count($cartItems);
                 $totalPrice = 0;
                 foreach ($cartItems as $item) {

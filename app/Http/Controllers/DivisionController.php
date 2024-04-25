@@ -23,19 +23,6 @@ class DivisionController extends Controller
     public function create()
     {
         
-        $request->validate([
-            'name' => 'required',
-        
-        ]);
-    
-        // Create Division
-        $division = Division::create([            //using create already saves the data into the DB
-            'name' => $request->input('name'),
-            'slug' => Str::slug($request->input('name')),
-           
-        ]);
-        
-        return redirect()->back();
     }
     public function view(){
     
@@ -79,7 +66,10 @@ class DivisionController extends Controller
            
         ]);
         
-        return redirect()->back();
+        return redirect()->back()->with([
+            'message' => 'New division added.',
+            'alert-type' => 'success'
+        ]);;
     }
 
     /**

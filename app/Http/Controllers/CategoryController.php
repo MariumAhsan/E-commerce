@@ -61,7 +61,10 @@ class CategoryController extends Controller
            
         ]);
         
-        return redirect()->back();
+        return redirect()->back()->with([
+            'message' => 'New categorry added.',
+            'alert-type' => 'success'
+        ]);
     }
 
     /**

@@ -46,7 +46,10 @@ class DistrictController extends Controller
            
         ]);
         
-        return redirect()->back();
+        return redirect()->back()->with([
+            'message' => 'New district added.',
+            'alert-type' => 'success'
+        ]);
     }
 
     /**

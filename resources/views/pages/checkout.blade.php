@@ -210,40 +210,49 @@
 </main>
 
 <script>
-
-document.getElementById('division_id').addEventListener('change', function() {
-    var divisionId = this.value;
-    var districtDropdown = document.getElementById('district_id');
-    districtDropdown.innerHTML = ''; // Clear existing options
-
-    if (divisionId) {
-        fetch('/get-districts/' + divisionId)
-            .then(response => response.json())
-            .then(data => {
-                console.log(data); 
-                data.forEach(district => {    //receiving array of districts
-                    var option = document.createElement('option');
-                    option.value = district.id;
-                    option.text = district.name;
-                    districtDropdown.add(option);
+    document.getElementById('division_id').addEventListener('change', function() {
+        var divisionId = this.value;
+        var districtDropdown = document.getElementById('district_id');
+        districtDropdown.innerHTML = ''; // Clear existing options
+    
+        var defaultOption = document.createElement('option');
+        defaultOption.value = 0;
+        defaultOption.text = 'Select your district';
+        districtDropdown.add(defaultOption);
+    
+        if (divisionId) {
+            fetch('/get-districts/' + divisionId)
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data); 
+                    data.forEach(district => {    //receiving array of districts
+                        var option = document.createElement('option');
+                        option.value = district.id;
+                        option.text = district.name;
+                        districtDropdown.add(option);
+                    });
                 });
-
-            });
-    }
-});
+        }
+    });
 </script>
+    
 <script>
 document.getElementById('district_id').addEventListener('change', function() {
     var districtId = this.value;
     var thanaDropdown = document.getElementById('thana_id');
     thanaDropdown.innerHTML = ''; // Clear existing options
 
+    var defaultOption = document.createElement('option');
+        defaultOption.value = 0;
+        defaultOption.text = 'Select your thana';
+        thanaDropdown.add(defaultOption);
+
     if (districtId) {
         fetch('/get-thanas/' + districtId)
             .then(response => response.json())
             .then(data => {
                 console.log(data); 
-                data.forEach(thana => {    //receiving array of districts
+                data.forEach(thana => {    //receiving array of thanas
                     var option = document.createElement('option');
                     option.value = thana.id;
                     option.text = thana.name;

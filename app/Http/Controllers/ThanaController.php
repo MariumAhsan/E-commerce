@@ -52,7 +52,7 @@ class ThanaController extends Controller
         return redirect()->back()->with([
             'message' => 'New thana added.',
             'alert-type' => 'success'
-        ]);;
+        ]);
     }
 
     /**

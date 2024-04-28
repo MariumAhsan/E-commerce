@@ -56,7 +56,7 @@ $orders= Order::where('user_id',$user_id)->get();
                                         @if(auth()->user()->user_type==1)
                                         <h5 class="mb-0"><a href="{{route('pages.dashboard')}}">Go Back to Admin </h5>
                                         @else
-                                        <h3 class="mb-0"><a href="{{route('pages.shop-grid-left')}}">Let's continue shopping</h3>
+                                        <h5 class="mb-0"><a href="{{route('pages.shop-grid-left')}}">Let's continue shopping</h5>
                                         @endif
                                     </div>
                                     

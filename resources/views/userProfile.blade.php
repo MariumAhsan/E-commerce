@@ -52,6 +52,13 @@ $orders= Order::where('user_id',$user_id)->get();
                                     <div class="card-header">
                                         <h3 class="mb-0">Hello {{Auth::user()->name }} !</h3>
                                     </div>
+                                    <div class="card-body">
+                                        @if(auth()->user()->user_type==1)
+                                        <h5 class="mb-0"><a href="{{route('pages.dashboard')}}">Go Back to Admin </h5>
+                                        @else
+                                        <h3 class="mb-0"><a href="{{route('pages.shop-grid-left')}}">Let's continue shopping</h3>
+                                        @endif
+                                    </div>
                                     
                                 </div>
                             </div>

@@ -39,10 +39,6 @@
         use App\Models\Order;
           $admin = auth()->user();
           $notifications = $admin->notifications()->paginate(10);
-          foreach ($notifications->items() as $notification) {
-          $data = $notification->data; }
-          $order= Order::where('id', $order_id)->get();
-          
       @endphp
 
       <!-- Messages Dropdown Menu -->
@@ -60,11 +56,6 @@
               <img src="{{asset('assets')}}/dist/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 mr-3 img-circle">
               <div class="media-body">
                 <h3 class="dropdown-item-title">
-                  @if($order->name)
-                  {{$order->name}}  
-                  @else
-                  Unknown User
-                  @endif
                   <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
                 </h3>
                 <p class="text-sm">{{ $notification->data['message'] }}</p>

@@ -20,7 +20,7 @@ class Product extends Model
     'product_type',
     'image',
     'slug',
-    'subcategory_id',
+    'sub_category_id',
     'mfg_date',
     'exp_date',
     'sku_code',

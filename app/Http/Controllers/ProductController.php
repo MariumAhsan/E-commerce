@@ -77,7 +77,7 @@ class ProductController extends Controller
         'is_featured' => $request->input('is_featured'),
         'product_type' => $request->input('product_type'),
         'slug' => Str::slug($request->input('name')),
-        'subcategory_id' => $request->input('subcategory_id'),
+        'sub_category_id' => $request->input('sub_category_id'),
         'mfg_date' => $request->input('mfg_date'),
         'exp_date' => $request->input('exp_date'),
         'sku_code' => $request->input('sku_code'),
@@ -214,12 +214,14 @@ public function search_category(Request $request)
         // Filter by category
         $productsQuery->whereHas('subcategory', function ($query) use ($categoryId) {
             $query->where('category_id', $categoryId);
+            
         });
     }
 
     if ($subcategoryId) {
         // Filter by subcategory
-        $productsQuery->where('subcategory_id', $subcategoryId);
+        $productsQuery->where('sub_category_id', $subcategoryId);
+        
     }
 
     $productData = $productsQuery->where('name', 'like', "%$query%")->get();

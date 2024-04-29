@@ -311,7 +311,7 @@
         }
         @endphp
         <li>
-            <a href="shop-grid-right.html">
+            <a href="{{ route('product.search.byCategory', ['category' => $category->id]) }}">
                 <img src="{{asset('assets')}}/assets/imgs/theme/icons/category-1.svg" alt=""/> {{$category->name}}
             </a>
             <span class="count">{{$productCount}}</span>

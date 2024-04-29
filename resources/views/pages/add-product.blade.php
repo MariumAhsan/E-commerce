@@ -124,7 +124,7 @@
 
                         <div class="form-group">
                             <label for="subcategory_id">{{ __('Subcategory') }}</label>
-                            <select id="subcategory_id" class="form-control @error('subcategory_id') is-invalid @enderror" name="subcategory_id" required>
+                            <select id="subcategory_id" class="form-control @error('subcategory_id') is-invalid @enderror" name="sub_category_id" required>
                                 <option value="">Select Subcategory</option>
                             </select>
                             @error('subcategory_id')

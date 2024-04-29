@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\Image;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Imagick\Driver;
@@ -19,7 +20,10 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return view('pages.dashboard');
+
+        $admin = auth()->user();
+        $notifications = $admin->notifications()->paginate(10);
+        return view('pages.dashboard', compact('notifications'));
     }
 
     /**

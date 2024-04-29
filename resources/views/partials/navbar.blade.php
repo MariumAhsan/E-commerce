@@ -35,6 +35,15 @@
           </form>
         </div>
       </li>
+      @php
+        use App\Models\Order;
+          $admin = auth()->user();
+          $notifications = $admin->notifications()->paginate(10);
+          foreach ($notifications->items() as $notification) {
+          $data = $notification->data; }
+          $order= Order::where('id', $order_id)->get();
+          
+      @endphp
 
       <!-- Messages Dropdown Menu -->
       <li class="nav-item dropdown">
@@ -43,53 +52,28 @@
           <span class="badge badge-danger navbar-badge">3</span>
         </a>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-          <a href="#" class="dropdown-item">
+          @foreach ($notifications as $notification)
+    
+          <a href="{{ route('pages.show-order-details', ['order_id' => $notification->data['order_id']]) }}" class="dropdown-item">
             <!-- Message Start -->
             <div class="media">
               <img src="{{asset('assets')}}/dist/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 mr-3 img-circle">
               <div class="media-body">
                 <h3 class="dropdown-item-title">
-                  Brad Diesel
+                  @if($order->name)
+                  {{$order->name}}  
+                  @else
+                  Unknown User
+                  @endif
                   <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
                 </h3>
-                <p class="text-sm">Call me whenever you can...</p>
-                <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
+                <p class="text-sm">{{ $notification->data['message'] }}</p>
+                <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> {{ $notification->created_at->diffForHumans() }}</p>
               </div>
             </div>
             <!-- Message End -->
           </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <!-- Message Start -->
-            <div class="media">
-              <img src="{{asset('assets')}}/dist/img/user8-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
-              <div class="media-body">
-                <h3 class="dropdown-item-title">
-                  John Pierce
-                  <span class="float-right text-sm text-muted"><i class="fas fa-star"></i></span>
-                </h3>
-                <p class="text-sm">I got your message bro</p>
-                <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-              </div>
-            </div>
-            <!-- Message End -->
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <!-- Message Start -->
-            <div class="media">
-              <img src="{{asset('assets')}}/dist/img/user3-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
-              <div class="media-body">
-                <h3 class="dropdown-item-title">
-                  Nora Silvester
-                  <span class="float-right text-sm text-warning"><i class="fas fa-star"></i></span>
-                </h3>
-                <p class="text-sm">The subject goes here</p>
-                <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-              </div>
-            </div>
-            <!-- Message End -->
-          </a>
+          @endforeach
           <div class="dropdown-divider"></div>
           <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
         </div>

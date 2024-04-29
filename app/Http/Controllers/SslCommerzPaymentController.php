@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Library\SslCommerz\SslCommerzNotification;
 use App\Models\Order;
 use App\Models\Cart;
+use App\Models\User;
+use App\Notifications\OrderPlacedNotification;
 
 class SslCommerzPaymentController extends Controller
 {
@@ -105,6 +107,9 @@ class SslCommerzPaymentController extends Controller
                     $cartItem->save();
                 }
             }
+
+            $admin = User::where('user_type' ,1)->first();
+            $admin->notify(new OrderPlacedNotification($order->id));
 
             return redirect()->route('pages.customer-invoice', $order->id)->with([
                 'message' => 'Order has been placed successfully.',
@@ -212,7 +217,9 @@ class SslCommerzPaymentController extends Controller
                                             }
                                         }
 
-                                      
+                    $admin = User::where('user_type' ,1)->first();
+                    $admin->notify(new OrderPlacedNotification($order_details->id));    
+
                     return redirect()->route('pages.customer-invoice', $order_details->id)->with([
                         'message' => 'Payment successful',
                         'alert-type' => 'success'

@@ -195,4 +195,35 @@ class ProductController extends Controller
 
         return view('pages.shop-grid-left', compact('productData','totalProduct','searchKey','categories','subcategories'));
     }
+
+
+public function search_category(Request $request)
+
+{
+    $query = $request->input('name');
+    $categoryId = $request->input('category');
+    $subcategoryId = $request->input('subcategory');
+
+    $productsQuery = Product::query();
+
+    if ($categoryId) {
+        // Filter by category
+        $productsQuery->whereHas('subcategory', function ($query) use ($categoryId) {
+            $query->where('category_id', $categoryId);
+        });
+    }
+
+    if ($subcategoryId) {
+        // Filter by subcategory
+        $productsQuery->where('subcategory_id', $subcategoryId);
+    }
+
+    $productData = $productsQuery->where('name', 'like', "%$query%")->get();
+   
+    $totalProduct = $productData->count();
+        $categories = Category::all();
+        $subcategories = Subcategory::all();
+    return view('pages.shop-grid-left', compact('productData','totalProduct','categories','subcategories'));
+}
+
 }

@@ -327,7 +327,9 @@
 
                                     @foreach($categories as $category)
                                     <li>
-                                        <a href="" class="search-link"> <img src="{{asset('assets')}}/assets/imgs/theme/icons/category-1.svg" alt="" />{{$category->name}}</a>
+                                        <a href="{{ route('product.search.byCategory', ['category' => $category->id]) }}" class="search-link">
+                                            <img src="{{asset('assets')}}/assets/imgs/theme/icons/category-1.svg" alt="" />
+                                            {{$category->name}}</a>
                                     </li>
                                     @endforeach
                                 </ul>
@@ -354,15 +356,20 @@
                                     <ul class="mega-menu">
                                         @foreach($categories as $category)
                                         <li class="sub-mega-menu sub-mega-menu-width-22">
-                                            <a class="menu-title search-link" href="#">{{$category->name}}</a>
-                                            <ul>
-                                                @foreach($category->subcategories as $subcategory)
-                                                <li><a href="" class="search-link">{{$subcategory->name}}</a></li>
-                                                @endforeach
-                                            </ul>
-                                        </li>
-                                        @endforeach
-                                        
+                                             <a href="{{ route('product.search.byCategory', ['category' => $category->id]) }}" class="menu-title">
+                                                 {{$category->name}}
+                                             </a>
+                                             <ul>
+                                                 @foreach($category->subcategories as $subcategory)
+                                                     <li>
+                                                         <a href="{{ route('product.search.byCategory', ['subcategory' => $subcategory->id]) }}" class="search-link">
+                                                             {{$subcategory->name}}
+                                                         </a>
+                                                     </li>
+                                                 @endforeach
+                                             </ul>
+                                         </li>
+                                        @endforeach                                   
                                     </ul>
                                 </li>
                             </ul>

@@ -293,13 +293,32 @@
             <div class="col-lg-1-5 primary-sidebar sticky-sidebar">
                 <div class="sidebar-widget widget-category-2 mb-30">
                     <h5 class="section-title style-1 mb-30">Category</h5>
-                    <ul>
-                        @foreach($categories as $category)
-                        <li>
-                            <a href="shop-grid-right.html"> <img src="{{asset('assets')}}/assets/imgs/theme/icons/category-1.svg" alt="" />{{$category->name}}</a><span class="count"></span>
-                        </li>
-                        @endforeach
-                    </ul>
+<ul>
+    @php
+    use App\Models\Category;
+    use App\Models\SubCategory;
+    use App\Models\Product;
+
+    $categories = Category::with('subcategories.products')->get();
+    
+    @endphp
+
+    @foreach($categories as $category)
+        @php
+        $productCount = 0;
+        foreach($category->subcategories as $subcategory) {
+            $productCount += $subcategory->products->count();
+        }
+        @endphp
+        <li>
+            <a href="shop-grid-right.html">
+                <img src="{{asset('assets')}}/assets/imgs/theme/icons/category-1.svg" alt=""/> {{$category->name}}
+            </a>
+            <span class="count">{{$productCount}}</span>
+        </li>
+    @endforeach
+</ul>
+
                 </div>
                 <div class="sidebar-widget product-sidebar mb-30 p-30 bg-grey border-radius-10">
                     <h5 class="section-title style-1 mb-30">New products</h5>

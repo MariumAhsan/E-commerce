@@ -300,16 +300,16 @@
     use App\Models\Product;
 
     $categories = Category::with('subcategories.products')->get();
-    
+    //dd($categories);
     @endphp
 
     @foreach($categories as $category)
-        @php
-        $productCount = 0;
-        foreach($category->subcategories as $subcategory) {
-            $productCount += $subcategory->products->count();
-        }
-        @endphp
+    @php
+    $productCount = 0;
+    foreach($category->subcategories as $subcategory) {
+        $productCount += $subcategory->products->count();
+    }
+    @endphp
         <li>
             <a href="{{ route('product.search.byCategory', ['category' => $category->id]) }}">
                 <img src="{{asset('assets')}}/assets/imgs/theme/icons/category-1.svg" alt=""/> {{$category->name}}

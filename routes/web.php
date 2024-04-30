@@ -90,7 +90,7 @@ Route::get('/single-product/{slug}', [ProductController::class, 'view_single_pro
 Route::resource('carts', CartController::class);
 Route::post('/cart/{product_id}', [CartController::class, 'store'])->name('store.cart');
 Route::post('/search', [ProductController:: class, 'search'])->name('product.search');
-Route::get('/search', [ProductController:: class, 'search_category'])->name('product.search.byCategory');
+Route::get('/search', [ProductController:: class, 'search_category'])->name('product.search.byCategory'); //
 Route::get('/user-account', [DivisionController::class, 'view'])->name('pages.userProfile');
 Route::post('/apply-coupon',[CouponController::class, 'applyCoupon']);
 Route::post('/create-order', [OrderController:: class, 'create'])->name('order.create');

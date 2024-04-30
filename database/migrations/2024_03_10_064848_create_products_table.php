@@ -23,8 +23,8 @@ return new class extends Migration
             $table->integer('product_type')->default(0)->comment('0=Physical, 1=Digital, 2=Organic');
             //$table->json('image')->nullable();
             $table->string('slug')->unique();
-            $table->foreignId('sub_category_id');
-            $table->foreign('sub_category_id')->references('id')->on('sub_categories')->onDelete('cascade');
+            $table->foreignId('subcategory_id');
+            $table->foreign('subcategory_id')->references('id')->on('sub_categories')->onDelete('cascade');
             $table->string('mfg_date')->nullable();
             $table->string('exp_date')->nullable();
             $table->string('sku_code')->nullable();

@@ -24,13 +24,13 @@
                                 <div class="row align-items-center">
                                     <div class="col-md-6">
                                         <div class="text">
-                                            205 North, Suite 810, Chicago, USA<br />
-                                            <abbr title="Phone">Phone:</abbr> (+123) 456-7890<br />
+                                            75/2, Indira Road, Tejgaon, Dhaka<br />
+                                            <abbr title="Phone">Phone:</abbr> (+880) 14564-7890<br />
                                         </div>
                                     </div>
                                     <div class="col-md-6 text-end">
                                         <strong class="text-brand">{{$order->name}}</strong> <br />
-                                        {{$order->address}}, Pallabi, Dhaka<br>
+                                        {{$order->address}}, Gulshan, Dhaka<br>
                                         <abbr title="Email">Email: </abbr><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="cba5ada48bbcaea9b1e5a8a4a6e5bba7">{{$order->email}}</a>
                                     </div>
                                 </div>

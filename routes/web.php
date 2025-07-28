@@ -30,7 +30,10 @@ Route::get('/', function () {
     return view('layouts.shop');
 });
 
-
+Route::get('/test-db', function () {
+    DB::connection()->getPdo();
+    return 'DB connected successfully!';
+});
 
 Route::get('/dashboard', function () {
     return view('dashboard');
